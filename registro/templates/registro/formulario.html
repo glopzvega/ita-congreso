@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block content %}
+
+<h1>Formulario</h1>
+<br>
+<div class="row">		
+	<div class="col-6 offset-3">
+		<form action="" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<!-- <table>    	 -->
+			
+			<div class="row">
+
+			{% for field in form %}			
+
+				<div class="col-6">
+					{{ field.label_tag }} 
+					{{ field }}
+					<br>
+				</div>
+				
+				<!-- {% if forloop.counter|divisibleby:2 %}
+				</div>
+				<div class="row">
+				{% endif %} -->
+
+			{% endfor %}
+			</div>
+			<hr>
+		    <div class="row">		    	
+				<div class="col">
+		    		<input type="submit" class="btn btn-primary" value="Guardar" />
+		    	</div>
+		    </div>
+		</form>			
+	</div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+
+	$("#id_tipo_registro").on("change", function(){
+		alert($(this).val())
+		let val = $(this).val()
+		if(val == "profesional")
+		{
+			$("#id_rfc").prop("required", true).parent(".col-6").show();
+			$("#id_nocontrol").prop("required", false).parent(".col-6").hide();
+		}
+		else
+		{
+			$("#id_rfc").prop("required", false).parent(".col-6").hide();
+			$("#id_nocontrol").prop("required", true).parent(".col-6").show();
+		}
+	});
+
+	$("#id_nocontrol").prop("required", false).parent(".col-6").hide();
+	$("#id_rfc").prop("required", false).parent(".col-6").hide();
+
+</script>
+
+{% endblock %}
