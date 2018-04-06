@@ -1,15 +1,496 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block styles %}
+
+<style>
+
+.carousel-caption h1
+{
+	font-family: 'Audiowide', cursive;	
+	text-shadow: 2px 2px #464a4e;	
+}
+
+.carousel-caption h1.titulo
+{	
+	font-family: 'Righteous', cursive;
+}
+
+section#main
+{
+	background-color: #353b41;
+	color: white
+}
+section#main p
+{
+	font-size: 1.3em;
+	line-height: 1.5em;
+}
+section#conferencistas
+{
+	padding-top: 5em;
+	background-color: #f8f9fa;
+    border: 0;
+    text-align: center;
+}
+section#conferencistas .card
+{
+    border: 0;
+    text-align: center;
+    background-color: #f8f9fa;
+}
+section#talleres
+{
+	background-color: #e9ecef;
+}
+section#talleres img
+{
+    width: 100%;
+}
+section#registro
+{
+	background-color: #1489d3;
+	color: white;
+}
+
+</style>
 
 {% endblock %}
 
 {% block content %}
 
-<h1>Formulario</h1>
-<br>
+<div class="row">
+	
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>    
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="{% static 'img/landing7.jpg' %}" alt="First slide">
+      <div class="carousel-caption d-none d-md-block">
+      	<h1 class="display-4">
+      		2o Congreso Internacional de Innovación Tecnología y Sustentabilidad       		
+      	</h1>
+      	<h1 class="display-3">CIITyS 2018</h1>
+      	<!-- <h1 class="display-4">
+      		Una visión multidisciplinaria
+      	</h1>-->
+      	<h1 class="display-5">      		
+      		Del 13 al 17 de Noviembre
+      	</h1>
+	    <a href="" class="btn btn-light btn-lg">REGISTRARSE</a>
+	  </div>
+    </div>    
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</div>
+
+<section id="main">
+	
+	<div class="row">
+		<div class="col-8 offset-2">
+			
+			<h1 class="text-center">CIITyS 2018</h1>	
+			<hr class="divider">		
+			<p align="" class="lead text-center">
+				El Instituto Tecnológico de Acapulco realizará este año la Semana Académica y Cultural, que tiene como propósito vincular a la comunidad Tecnológica académica, científica, empresarial y a la sociedad en general. Expertos profesionistas y académicos compartirán sus experiencias con ponencias magistrales en temas de interés nacional como es el ahorro de energía, nuevas tecnologías, desarrollo sustentable, innovación y competitividad, avances tecnológicos en la empresa, medios digitales y el marketing digital.
+			</p>
+		</div>
+	</div>
+
+</section>
+
+<section id="conferencistas">
+
+	<div class="row">
+		<div class="col-8 offset-2 text-center">
+			<h1>Conferencistas Magistrales</h1>
+			<hr class="divider">
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-8 offset-2">
+			<div class="row">
+				<div class="col-4">
+
+					<div class="card" style="width: 16rem;">
+					  <img class="card-img-top rounded-circle" src="{% static '/photos/1.jpg' %}" alt="Card image cap">
+					  <div class="card-body text-center">
+					    <p class="card-text">
+					    <strong>DR. MIGUEL ARZATE PÉREZ</strong>
+					    <br>
+					    <span>					    	
+					    "MATERIALES AMIGABLES CON EL MEDIO AMBIENTE".</p>
+					    </span>
+					    </p>
+					  </div>
+					</div>
+					
+				</div>
+				<div class="col-4">
+
+					<div class="card" style="width: 16rem;">
+					  <img class="card-img-top rounded-circle" src="{% static '/photos/2.jpg' %}" alt="Card image cap">
+					  <div class="card-body text-center">
+					    <p class="card-text">
+					    <strong>BIÓ. JERÓNIMO REYES SANTIAGO</strong>
+					    <br>
+					    <span>					    	
+					    "NATURACIÓN DE EDIFICIO EN LA CIUDAD DE MÉXICO"</p>
+					    </span>
+					    </p>
+					  </div>
+					</div>					
+					
+				</div>
+				<div class="col-4">
+
+					<div class="card" style="width: 16rem;">
+					  <img class="card-img-top rounded-circle" src="{% static '/photos/3.jpg' %}" alt="Card image cap">
+					  <div class="card-body text-center">
+					    <p class="card-text">
+					    <strong>ARQ. CARLOS ANTONIO ORTÍZ GONZÁLEZ</strong>
+					    <br>
+					    <span>					    	
+					    "CONSTRUCCIÓN DE UNA PRÁCTICA DESDE LA ATMÓSFERA"</p>
+					    </span>
+					    </p>
+					  </div>
+					</div>						
+					
+				</div>
+
+				<div class="col-4">
+
+					<div class="card" style="width: 16rem;">
+					  <img class="card-img-top rounded-circle" src="{% static '/photos/4.jpg' %}" alt="Card image cap">
+					  <div class="card-body text-center">
+					    <p class="card-text">
+					    <strong>ARQ. CARLOS ANTONIO ORTÍZ GONZÁLEZ</strong>
+					    <br>
+					    <span>					    	
+					    "CONSTRUCCIÓN DE UNA PRÁCTICA DESDE LA ATMÓSFERA"</p>
+					    </span>
+					    </p>
+					  </div>
+					</div>						
+					
+				</div>
+
+				<div class="col-4">
+
+					<div class="card" style="width: 16rem;">
+					  <img class="card-img-top rounded-circle" src="{% static '/photos/5.jpg' %}" alt="Card image cap">
+					  <div class="card-body text-center">
+					    <p class="card-text">
+					    <strong>ARQ. CARLOS ANTONIO ORTÍZ GONZÁLEZ</strong>
+					    <br>
+					    <span>					    	
+					    "CONSTRUCCIÓN DE UNA PRÁCTICA DESDE LA ATMÓSFERA"</p>
+					    </span>
+					    </p>
+					  </div>
+					</div>						
+					
+				</div>
+
+				<div class="col-4">
+
+					<div class="card" style="width: 16rem;">
+					  <img class="card-img-top rounded-circle" src="{% static '/photos/6.jpg' %}" alt="Card image cap">
+					  <div class="card-body text-center">
+					    <p class="card-text">
+					    <strong>ARQ. CARLOS ANTONIO ORTÍZ GONZÁLEZ</strong>
+					    <br>
+					    <span>					    	
+					    "CONSTRUCCIÓN DE UNA PRÁCTICA DESDE LA ATMÓSFERA"</p>
+					    </span>
+					    </p>
+					  </div>
+					</div>						
+					
+				</div>
+
+				<div class="col-4">
+
+					<div class="card" style="width: 16rem;">
+					  <img class="card-img-top rounded-circle" src="{% static '/photos/7.jpg' %}" alt="Card image cap">
+					  <div class="card-body text-center">
+					    <p class="card-text">
+					    <strong>ARQ. CARLOS ANTONIO ORTÍZ GONZÁLEZ</strong>
+					    <br>
+					    <span>					    	
+					    "CONSTRUCCIÓN DE UNA PRÁCTICA DESDE LA ATMÓSFERA"</p>
+					    </span>
+					    </p>
+					  </div>
+					</div>						
+					
+				</div>
+
+				<div class="col-4">
+
+					<div class="card" style="width: 16rem;">
+					  <img class="card-img-top rounded-circle" src="{% static '/photos/8.jpg' %}" alt="Card image cap">
+					  <div class="card-body text-center">
+					    <p class="card-text">
+					    <strong>ARQ. CARLOS ANTONIO ORTÍZ GONZÁLEZ</strong>
+					    <br>
+					    <span>					    	
+					    "CONSTRUCCIÓN DE UNA PRÁCTICA DESDE LA ATMÓSFERA"</p>
+					    </span>
+					    </p>
+					  </div>
+					</div>						
+					
+				</div>
+
+				<div class="col-4">
+
+					<div class="card" style="width: 16rem;">
+					  <img class="card-img-top rounded-circle" src="{% static '/photos/9.jpg' %}" alt="Card image cap">
+					  <div class="card-body text-center">
+					    <p class="card-text">
+					    <strong>ARQ. CARLOS ANTONIO ORTÍZ GONZÁLEZ</strong>
+					    <br>
+					    <span>					    	
+					    "CONSTRUCCIÓN DE UNA PRÁCTICA DESDE LA ATMÓSFERA"</p>
+					    </span>
+					    </p>
+					  </div>
+					</div>						
+					
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</section>
+
+	
+
+<section id="talleres">
+	
+	<div class="row">
+		<div class="col-8 offset-2 text-center">
+			<h1>Cursos y Talleres</h1>
+			<hr class="divider">
+		</div>
+	</div>
+
+	
+
+	<div class="row">
+		<div class="col-5 offset-1">
+
+
+		<div class="row">
+			<div class="col-6 text-right">
+				
+				<h5 class="">
+				3D ESTUDIO MAX 
+				
+				<span class="text-muted">
+					(LABORATORIO DE TOPOGRAFÍA)
+				</span></h5>
+				
+				<p class="">
+					Dias y horario: Imparte Arq. Oswaldo N. Altamirano Ruiz, del lunes 13 al 16 de noviembre de 2017, en un horario de 9:00 a 13:00 horas.
+
+					<br>
+					<br>
+
+					<a href="" class="btn btn-lg registro btn-success">
+						Más Información
+					</a>
+				</p>
+			</div>
+			<div class="col-6">
+				<img src='{% static "/taller/1.png" %}' alt="3d-max">
+			</div>
+		</div>
+		
+		<br>
+		<br>
+
+		<div class="row">
+
+			<div class="col-6 text-right">				
+				<h5 class="display-5">
+				AUTOCAD AVANZADO
+				<br>
+				<span class="text-muted">
+					(AULA 805)
+				</span></h5>
+				
+				<p class="">
+					Dias y horario: Imparte el Arq. Miguel Angel Peralta Hernández. Del lunes 13 al jueves 16 de noviembre de 2017. En un horario de las 9:00 a las 13:00 horas.
+
+					<br>
+					<br>
+
+					<a href="" class="btn btn-lg registro btn-success">
+						Más Información
+					</a>
+				</p>
+			</div>
+
+			<div class="col-6">
+				<img src='{% static "/taller/autocad-2019.jpg" %}' alt="3d-max">
+			</div>
+		</div>
+
+		<br>
+		<br>
+
+		<div class="row">
+			<div class="col-6">
+				
+				<h5 class="text-right">
+				AUTOCAD BÁSICO 
+				<br>
+				<span class="text-muted">
+					(LABORATORIO DE CÓMPUTO)
+				</span></h5>
+				
+				<p class=" text-right">
+					Dias y horario: Imparte: C. Christian Bathuel Alvarado Acosta y C. Abdallah Isaias Guevara Camacho. Del día 13 al 16 de noviembre del 2017 de 9-13 horas
+
+					<br>
+					<br>
+
+					<a href="" class="btn btn-lg registro btn-success">
+						Más Información
+					</a>
+				</p>
+			</div>
+			<div class="col-6">
+				<img src='{% static "/taller/AutoCAD.jpg" %}' alt="3d-max">
+			</div>
+		</div>
+
+			
+
+			
+		</div>
+
+		<div class="col-5">
+			
+			<div class="row">
+			
+			<div class="col-6">
+				<img src='{% static "/taller/1.png" %}' alt="3d-max">
+			</div>
+
+			<div class="col-6">
+				
+				<h5 class="">
+				3D ESTUDIO MAX 
+				
+				<span class="text-muted">
+					(LABORATORIO DE TOPOGRAFÍA)
+				</span></h5>
+				
+				<p class="">
+					Dias y horario: Imparte Arq. Oswaldo N. Altamirano Ruiz, del lunes 13 al 16 de noviembre de 2017, en un horario de 9:00 a 13:00 horas.
+
+					<br>
+					<br>
+
+					<a href="" class="btn btn-lg registro btn-success">
+						Más Información
+					</a>
+				</p>
+			</div>
+		</div>
+		
+		<br>
+		<br>
+
+		<div class="row">
+			
+			<div class="col-6">
+				<img src='{% static "/taller/autocad-2019.jpg" %}' alt="3d-max">
+			</div>
+
+			<div class="col-6">				
+				<h5 class="display-5">
+				AUTOCAD AVANZADO
+				<br>
+				<span class="text-muted">
+					(AULA 805)
+				</span></h5>
+				
+				<p class="">
+					Dias y horario: Imparte el Arq. Miguel Angel Peralta Hernández. Del lunes 13 al jueves 16 de noviembre de 2017. En un horario de las 9:00 a las 13:00 horas.
+
+					<br>
+					<br>
+
+					<a href="" class="btn btn-lg registro btn-success">
+						Más Información
+					</a>
+				</p>
+			</div>
+		</div>
+
+		<br>
+		<br>
+
+		<div class="row">
+			
+			<div class="col-6">
+				<img src='{% static "/taller/AutoCAD.jpg" %}' alt="3d-max">
+			</div>
+
+			<div class="col-6">
+				
+				<h5 class="">
+				AUTOCAD BÁSICO 
+				<br>
+				<span class="text-muted">
+					(LABORATORIO DE CÓMPUTO)
+				</span></h5>
+				
+				<p class="">
+					Dias y horario: Imparte: C. Christian Bathuel Alvarado Acosta y C. Abdallah Isaias Guevara Camacho. Del día 13 al 16 de noviembre del 2017 de 9-13 horas
+
+					<br>
+					<br>
+
+					<a href="" class="btn btn-lg registro btn-success">
+						Más Información
+					</a>
+				</p>
+			</div>
+		</div>
+
+		</div>
+	</div>
+</section>
+
+<section id="registro">
+	
+<div class="row">
+	<div class="col-8 offset-2">
+		<h1 class="text-center">Registro</h1>
+		<hr class="divider red">
+	</div>
+</div>
+
 <div class="row">		
-	<div class="col-6 offset-3">
+	<div class="col-8 offset-2">
 		<form action="" method="post" enctype="multipart/form-data">
 			{% csrf_token %}
 			<!-- <table>    	 -->
@@ -30,16 +511,17 @@
 				{% endif %} -->
 
 			{% endfor %}
-			</div>
-			<hr>
+			</div>			
 		    <div class="row">		    	
-				<div class="col">
-		    		<input type="submit" class="btn btn-primary" value="Guardar" />
+				<div class="col-4 offset-4">
+		    		<input type="submit" class="btn btn-lg btn-danger" value="REGISTRARSE" />
 		    	</div>
 		    </div>
 		</form>			
 	</div>
 </div>
+
+</section>
 
 {% endblock %}
 
@@ -64,6 +546,12 @@
 
 	$("#id_nocontrol").prop("required", false).parent(".col-6").hide();
 	$("#id_rfc").prop("required", false).parent(".col-6").hide();
+
+	
+	$(".registro").on("click", function(e){
+		e.preventDefault();
+		lity("/registrar/")
+	});
 
 </script>
 

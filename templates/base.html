@@ -10,9 +10,52 @@
 	{% load static %}
     
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/lity.min.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Audiowide|Gugi|Righteous" rel="stylesheet">
+    
+    <style>
+
+        section
+        {
+            margin-right: -15px;
+            margin-left: -15px;
+            padding: 4em;
+        }        
+
+        section#header
+        {
+            padding: 2em;
+        }
+
+        section#header img
+        {
+            height: 80px;
+        }
+
+        section#header .maintitulo
+        {
+            font-family: 'soberanaTitularBold';
+            font-size: 1.2em;
+            padding-top: 1em;
+        }
+
+        hr.divider
+        {
+            border: 2px solid #17a2b8;
+            margin-bottom: 3em;
+            width: 80px;            
+        }
+
+        hr.divider.red
+        {
+            border: 2px solid #dc3545;                        
+        }
+       
+    </style>
+
 
     {% block styles %}
 
@@ -20,10 +63,71 @@
 
   </head>
   <body>
-    <div class="container-fluid">
-    {% block content %}    
 
-    {% endblock %}
+  {% block header %}
+
+  <section id="header">
+      
+      <div class="row">
+          <div class="col-2 offset-2">
+              <img src='{% static "/logos/sep.png" %}' alt="sep">
+          </div>
+          <div class="col-4 text-center text-muted">
+              <h1 class="maintitulo">TECNOLÓGICO NACIONAL DE MÉXICO
+              <br>
+              INSTITUTO TECNOLÓGICO DE ACAPULCO</h1>
+          </div>
+          <div class="col-1">
+              <img src='{% static "/logos/ita.png" %}' alt="ita" >
+          </div>
+          <div class="col-2">
+              <img src='{% static "/logos/tnm.png" %}' alt="ita" style="height: " >
+          </div>
+      </div>
+
+  </section>
+    
+  {% endblock %}
+
+  {% block navbar %}
+      
+    
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand" href="/">CIITyS 2018</a>
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="#main">Inicio <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#conferencistas">Conferencistas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#talleres">Talleres</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#registro">Registro</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#">Contacto</a>
+              </li>
+            </ul>
+            
+          </div>
+    </nav>
+
+  {% endblock %}
+      
+    <div class="container-fluid">
+        
+    {% block content %}   
+
+
+
+    {% endblock %}    
     </div>
     
     <!-- Optional JavaScript -->
@@ -36,9 +140,21 @@
       $("input,select,textarea").addClass("form-control")
       $('[data-toggle="tooltip"]').tooltip()      
     </script>
+    
+    <script>
+
+    // $(".nav-link").on("click", function(){
+    //     $(".nav-item").removeClass("active");
+    //     $(this).parent().addClass("active");
+    // });
+
+    $('body').scrollspy({ target: '.navbar' })
+
+
+    </script>
   
     {% block scripts %}
-    
+
     {% endblock %}
 
   </body>
