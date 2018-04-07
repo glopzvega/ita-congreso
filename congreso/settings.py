@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'app.iozoft.com',
+    'ita-congreso.iozoft.com',
 ]
 
 
