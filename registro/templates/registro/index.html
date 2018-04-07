@@ -6,7 +6,6 @@
 
 <style>
 
-
 .carousel-caption h1
 {
 	font-family: 'Audiowide', cursive;	
@@ -49,6 +48,11 @@ section#talleres img
 {
     width: 100%;
 }
+section#registro
+{
+	background-color: #1e4e6b;
+	color: white;
+}
 
 </style>
 
@@ -76,7 +80,7 @@ section#talleres img
       	<h1 class="display-5">      		
       		Del 13 al 17 de Noviembre
       	</h1>
-	    <a href="" class="btn btn-light btn-lg">REGISTRARSE</a>
+	    <a href="" class="btn btn-danger btn-lg">REGISTRARSE</a>
 	  </div>
     </div>    
   </div>
@@ -308,7 +312,7 @@ section#talleres img
 					<br>
 
 					<a href="" class="btn btn-lg registro btn-success">
-						Registrarse
+						Más Información
 					</a>
 				</p>
 			</div>
@@ -337,7 +341,7 @@ section#talleres img
 					<br>
 
 					<a href="" class="btn btn-lg registro btn-success">
-						Registrarse
+						Más Información
 					</a>
 				</p>
 			</div>
@@ -367,7 +371,7 @@ section#talleres img
 					<br>
 
 					<a href="" class="btn btn-lg registro btn-success">
-						Registrarse
+						Más Información
 					</a>
 				</p>
 			</div>
@@ -405,7 +409,7 @@ section#talleres img
 					<br>
 
 					<a href="" class="btn btn-lg registro btn-success">
-						Registrarse
+						Más Información
 					</a>
 				</p>
 			</div>
@@ -435,7 +439,7 @@ section#talleres img
 					<br>
 
 					<a href="" class="btn btn-lg registro btn-success">
-						Registrarse
+						Más Información
 					</a>
 				</p>
 			</div>
@@ -466,7 +470,7 @@ section#talleres img
 					<br>
 
 					<a href="" class="btn btn-lg registro btn-success">
-						Registrarse
+						Más Información
 					</a>
 				</p>
 			</div>
@@ -476,11 +480,73 @@ section#talleres img
 	</div>
 </section>
 
+<section id="registro">
+	
+<div class="row">
+	<div class="col-8 offset-2">
+		<h1 class="text-center">Registro</h1>
+		<hr class="divider red">
+	</div>
+</div>
+
+<div class="row">		
+	<div class="col-8 offset-2">
+		<form action="" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<!-- <table>    	 -->
+			
+			<div class="row">
+
+			{% for field in form %}			
+
+				<div class="col-6">
+					{{ field.label_tag }} 
+					{{ field }}
+					<br>
+				</div>
+				
+				<!-- {% if forloop.counter|divisibleby:2 %}
+				</div>
+				<div class="row">
+				{% endif %} -->
+
+			{% endfor %}
+			</div>			
+		    <div class="row">		    	
+				<div class="col-4 offset-4">
+		    		<input type="submit" class="btn btn-lg btn-danger" value="REGISTRARSE" />
+		    	</div>
+		    </div>
+		</form>			
+	</div>
+</div>
+
+</section>
+
 {% endblock %}
 
 {% block scripts %}
 
 <script>
+
+	$("#id_tipo_registro").on("change", function(){
+		alert($(this).val())
+		let val = $(this).val()
+		if(val == "profesional")
+		{
+			$("#id_rfc").prop("required", true).parent(".col-6").show();
+			$("#id_nocontrol").prop("required", false).parent(".col-6").hide();
+		}
+		else
+		{
+			$("#id_rfc").prop("required", false).parent(".col-6").hide();
+			$("#id_nocontrol").prop("required", true).parent(".col-6").show();
+		}
+	});
+
+	$("#id_nocontrol").prop("required", false).parent(".col-6").hide();
+	$("#id_rfc").prop("required", false).parent(".col-6").hide();
+
 	
 	$(".registro").on("click", function(e){
 		e.preventDefault();
