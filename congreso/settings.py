@@ -25,7 +25,9 @@ SECRET_KEY = '44tnq68n2brm$@bsc7-e40#5b)6qo+*h8j+x=_f9gvvn6eqt82'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'app.iozoft.com',
+]
 
 
 # Application definition
