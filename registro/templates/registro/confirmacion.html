@@ -1,5 +1,44 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+{% block navbar %}
+    
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <a class="navbar-brand" href="/">CIITyS 2018</a>
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link active" href="#header">Inicio <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../#ciitys">Ciitys 2018</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../#conferencistas">Conferencistas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../#talleres">Talleres</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../#registro">Registro</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../#contacto">Contacto</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../administracion">Acceder</a>
+      </li>
+    </ul>
+    
+  </div>
+</nav>
+
+{% endblock %}
+
 {% block content %}
 
 <h1>Confirmación de Registro</h1>

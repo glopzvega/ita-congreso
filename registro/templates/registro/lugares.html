@@ -1,0 +1,52 @@
+{% extends 'baseadmin.html' %}
+
+{% block content %}
+<section >
+
+<div class="row">
+	<div class="col text-center">
+		<h1>Listado de Lugares:</h1>
+		<hr class="divider red">
+	</div>
+</div>
+<div class="row">
+	<div class="col">		
+		<a href="{% url 'lugares_nuevo' %}" class="btn btn-danger">
+		<i class="fa fa-plus"></i>
+		Agregar Nuevo</a>
+		<br><br>		
+	</div>
+</div>
+<div class="row">
+	<div class="col-12">	
+	
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Nombre</th>					
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for row in data %}
+				<tr>
+					<td><a href='{% url "lugares_editar" row.id %}'>{{ row.nombre }}</a></td>					
+					<td align="right">
+						<div class="dropdown">
+						  <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Acciones
+						  </button>
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						    <a class="dropdown-item" href="{% url 'lugares_editar' row.id %}">Editar</a>						    
+						    {# <a class="dropdown-item" href="{% url 'eliminar' prod.id %}">Eliminar</a> #}
+						  </div>
+						</div>						
+					</td>
+				</tr>
+				{% endfor %}	
+			</tbody>
+		</table>
+	</div>
+</div>
+</section>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'baseadmin.html' %}
+{% block content %}
+<section>
+
+<div class="row">
+	<div class="col text-center">
+		<h1>Edición de Datos</h1>
+		<hr class="divider red">
+	</div>
+</div>
+	
+<div class="row">
+	
+	<div class="col">		
+		<form action="" method="post" enctype="multipart/form-data">
+		    {% csrf_token %}
+		    <!-- <table>    	 -->
+		    {% for field in form %}
+			
+			<div class="row">				
+				<div class="col-4 offset-4 text-center">
+					{{ field.label_tag }} 
+					{{ field }}
+		    	<hr class="">
+				</div>
+			</div>
+
+		    {% endfor %}
+
+		    <!-- </table> -->
+		    <div class="row">		    	
+				<div class="col-4 offset-4">
+		    		<input type="submit" class="btn btn-danger" value="Guardar" />
+		    	</div>
+		    </div>
+		</form>
+	</div>
+</div>
+</section>
+
+{% endblock %}
