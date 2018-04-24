@@ -1,0 +1,124 @@
+{% extends 'baseadmin.html' %}
+
+{% block content %}
+<script>
+	
+stateFormatter = function(value, row)
+{
+	if ($.trim(value) == "draft")
+	{
+		return "Pago Pendiente";
+	}
+	else
+	{
+		return "Pagado";
+	}
+}
+</script>
+<section >
+
+<div class="row">
+	<div class="col text-center">
+		<h1>Listado de Registros:</h1>
+		<hr class="divider red">
+	</div>
+</div>
+<div id="toolbar" class="row">
+	<div class="col">		
+		<a href="{% url 'registros_nuevo' %}" class="btn btn-danger">
+		<i class="fa fa-plus"></i>
+		Agregar Nuevo</a>
+		<br><br>		
+	</div>
+</div>
+<div class="row">
+	<div class="col-12">	
+	
+		<table class="table" 
+				data-search="true" 
+				data-click-to-select="true"
+				data-show-columns="false"
+				data-pagination="true" 
+				data-height="450"
+				data-show-export="false"
+				data-toolbar="#toolbar">
+			<thead>
+				<tr>
+					<th data-field="nombre" data-sortable="true">Nombre</th>	
+					<th data-field="apellidop" data-sortable="true">Apellidos</th>
+					<th data-field="email" data-sortable="true">Email</th>
+					<th data-field="tipo" data-sortable="true">Tipo</th>
+					<th data-field="identificacion" data-sortable="true">Identificación</th>	
+					<th data-field="state" data-sortable="true" data-formatter="stateFormatter">Estatus</th>	
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for row in data %}
+				<tr>
+					<td>
+						<a href='{% url "registros_editar" row.id %}'>
+							{{ row.nombre }}
+						</a>
+					</td>
+					<td>
+						<a href=''>{{ row.apellidop }} {{ row.apellidom }} </a>
+					</td>
+					<td>
+						<a href=''>{{ row.email }} </a>
+					</td>
+					<td>
+						{% if row.tipo_registro == 'profesional' %}
+						Profesionista
+						{% elif row.tipo_registro == 'alumno' %}
+						Alumno ITA
+						{% elif row.tipo_registro == 'exalumno' %}
+						Ex-Alumno ITA
+						{% else %}
+						Alumno Externo
+						{% endif %}
+
+					</td>
+					<td>
+						{% if row.tipo_registro == 'profesional' %}
+						{{ row.rfc }}
+						{% elif row.tipo_registro == 'alumno' %}
+						{{ row.nocontrol }}
+						{% else %}
+
+							{% if row.rfc %}
+								{{ row.rfc }}
+							{% elif row.nocontrol %}
+								{{ row.nocontrol }}
+							{% endif %}
+
+						{% endif %}
+					</td>	
+					<td>										
+						{{ row.state }}
+					</td>				
+					<td align="right">
+						<div class="dropdown">
+						  <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Acciones
+						  </button>
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						    <a class="dropdown-item" href='{% url "registros_editar" row.id %}'>Editar</a>						    
+						    {# <a class="dropdown-item" href="{% url 'eliminar' prod.id %}">Eliminar</a> #}
+						  </div>
+						</div>						
+					</td>
+				</tr>
+				{% endfor %}	
+			</tbody>
+		</table>
+	</div>
+</div>
+</section>
+{% endblock %}
+
+
+{% block scripts %}
+
+
+{% endblock %}

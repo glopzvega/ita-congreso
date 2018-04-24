@@ -5,6 +5,8 @@ from django.db import models
 class Ponente(models.Model):
 
 	nombre = models.CharField(max_length=255)
+	email = models.EmailField(max_length=255)
+	telefono = models.CharField(max_length=20)
 	titulo = models.CharField(max_length=50)
 	intro = models.TextField()
 	foto = models.ImageField(blank=True)
@@ -110,6 +112,7 @@ class Registro(models.Model):
 	carrera = models.CharField(max_length=255, choices=CARRERAS)
 	semestre = models.CharField(max_length=255, choices=SEMESTRES)
 	email = models.EmailField(max_length=255)
+	telefono = models.CharField(max_length=20)
 	municipio = models.CharField(max_length=255)	
 	estado = models.CharField(max_length=255, choices=ESTADOS)
 	tipo_registro = models.CharField(max_length=255, choices=TIPO_REGISTRO)

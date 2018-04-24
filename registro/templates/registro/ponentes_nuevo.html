@@ -1,0 +1,48 @@
+{% extends 'baseadmin.html' %}
+
+{% block content %}
+
+<section id="registro">
+	
+<div class="row">
+	<div class="col-8 offset-2">
+		<h1 class="text-center">Ponentes</h1>
+		<hr class="divider red">
+	</div>
+</div>
+
+<div class="row">		
+	<div class="col-10 offset-1">
+		<form action="" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<!-- <table>    	 -->
+			
+			<div class="row">
+
+			{% for field in form %}			
+
+				<div class="col-6">
+					{{ field.label_tag }} 
+					{{ field }}
+					<br>
+				</div>
+				
+				<!-- {% if forloop.counter|divisibleby:2 %}
+				</div>
+				<div class="row">
+				{% endif %} -->
+
+			{% endfor %}
+			</div>			
+		    <div class="row">		    	
+				<div class="col-4 offset-4">
+		    		<input type="submit" class="btn btn-lg btn-danger" value="GUARDAR" />
+		    	</div>
+		    </div>
+		</form>			
+	</div>
+</div>
+
+</section>
+
+{% endblock %}

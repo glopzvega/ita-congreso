@@ -7,7 +7,7 @@ class PonenteModelForm(ModelForm):
 
 	class Meta:
 		model = Ponente
-		fields = '__all__'
+		fields = ("nombre", "titulo", "email", "telefono", "intro", "foto")
 
 class LugarModelForm(ModelForm):
 
@@ -19,7 +19,11 @@ class ConferenciaModelForm(ModelForm):
 
 	class Meta:
 		model = Conferencia
-		fields = '__all__'
+		labels = {
+			'duracion' : 'Duración (Horas)',
+			'fecha_hora' : 'Fecha y Hora'
+		}
+		fields = ("nombre", "ponente", "lugar", "fecha_hora", "duracion", "descripcion", "foto")
 
 class RegistroModelForm(ModelForm):
 
@@ -28,7 +32,7 @@ class RegistroModelForm(ModelForm):
 
 	class Meta:
 		model = Registro
-		fields = ("tipo_registro", "nombre", "apellidop", "apellidom", "nocontrol", "rfc", "carrera", "semestre", "email", "municipio", "estado")
+		fields = ("tipo_registro", "nombre", "apellidop", "apellidom", "nocontrol", "rfc", "carrera", "semestre", "email", "telefono", "municipio", "estado")
 		# fields = "__all__" #("precio",)
 		# exlude = ("imagen",)
 		labels = {
@@ -48,3 +52,4 @@ class RegistroModelForm(ModelForm):
 		super(RegistroModelForm, self).__init__(*args, **kwargs)
 		self.fields['rfc'].required = False
 		self.fields['nocontrol'].required = False
+		self.fields['telefono'].required = False

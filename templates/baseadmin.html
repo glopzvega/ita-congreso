@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/lity.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-table.css' %}">
+    <link rel="stylesheet" href="{% static 'css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/select2-bootstrap.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Audiowide|Gugi|Righteous" rel="stylesheet">
     
     <style>
@@ -22,12 +25,14 @@
         {
             margin-right: -15px;
             margin-left: -15px;
-            padding: 4em;
+            padding: 4em 1em;
         }        
 
         section#header
         {
             padding: 2em;
+            width: 100%;
+            max-width: 100%;
         }
 
         section#header img
@@ -78,7 +83,7 @@
 
   {% block header %}
 
-  <section id="header">
+  <section id="header" class="d-none d-md-block">
       
       <div class="row">
           <div class="col-2 offset-2">
@@ -112,7 +117,7 @@
             <a class="navbar-brand" href="/">CIITyS 2018</a>
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
               <li class="nav-item">
-                <a class="nav-link" href="../#header">Inicio <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/registros">Registros <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/ponentes">Ponentes</a>
@@ -158,13 +163,19 @@
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/lity.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-table.js' %}"></script>
+    <script src="{% static 'js/bootstrap-table-export.js' %}"></script>
+    <script src="{% static 'js/tableExport.js' %}"></script>
+    <script src="{% static 'js/select2.min.js' %}"></script>
 
     <script>
 
       $("input,select,textarea").addClass("form-control")
-      $('[data-toggle="tooltip"]').tooltip();    
+      $("[data-toggle='tooltip']").tooltip();    
 
-      $('body').scrollspy({ target: '.navbar' , offset : 300})
+      $("body").scrollspy({ target: '.navbar' , offset : 300})
+
+      $("table").bootstrapTable();
 
     </script>
   
