@@ -24,7 +24,10 @@ def index(request):
 	else:
 		form = RegistroModelForm()
 
+	ponentes = Ponente.objects.all()
+
 	context = {
+		"ponentes" : ponentes,
 		"form" : form
 	}
 
@@ -135,11 +138,16 @@ def ponentes_editar(request, id):
 	# Si accedo por medio de POST a esta vista
 	if request.method == 'POST':
 		# Obtengo la informacion enviada por POST y FILES
-		form = PonenteModelForm(request.POST, instance=registro)
+		form = PonenteModelForm(request.POST, request.FILES, instance=registro)
 		# Valido el formulario
 		if form.is_valid():
 			# Guardo el formulario
-			form.save()
+			ponente = form.save(commit=False)
+
+			if request.FILES and request.FILES["foto"]:
+				ponente.foto = request.FILES["foto"]
+			# Guardo en la BD
+			ponente.save()			
 			# Devuelvo el template
 			return redirect('ponentes')
 	

@@ -1,4 +1,17 @@
 {% extends 'baseadmin.html' %}
+{% load static %}
+
+{% block styles %}
+
+<style>
+	.image
+	{
+		width: 300px;
+	}
+</style>
+
+{% endblock %}
+
 {% block content %}
 <section>
 
@@ -9,33 +22,55 @@
 	</div>
 </div>
 	
+<form action="" method="post" enctype="multipart/form-data">
+{% csrf_token %}
 <div class="row">
-	
-	<div class="col-10 offset-1">		
-		<form action="" method="post" enctype="multipart/form-data">
-		    {% csrf_token %}
-		    <!-- <table>    	 -->
-			<div class="row">				
-		    {% for field in form %}
+	<div class="col-3 offset-1 text-center">
+		{% if data.foto %}
+		<img src="{{ data.foto.url }}" class="image rounded-circle" alt="foto del Ponente">
+		{% elif not data.foto %}
+		<img src="{% static 'img/default.png' %}" class="image" alt="Imagen Ponente Default" style="width: 100%;">			
+		{% endif %}
+		<hr>
+		<input type="file" name="foto" id="foto_id" class="form-control">
+	</div>
+	<div class="col-6 offset-1">		
+	    
+		<div class="row">				
+	    {% for field in form %}
 			
-				<div class="col-6">
-					{{ field.label_tag }} 
-					{{ field }}
-		    		<br>
-				</div>
-
-		    {% endfor %}
+			{% if field.name == 'intro' %}
+			
+			<div class="col-12">
+				{{ field.label_tag }} 
+				{{ field }}
+	    		<br>
 			</div>
 
-		    <!-- </table> -->
-		    <div class="row">		    	
-				<div class="col-6 offset-3">
-		    		<input type="submit" class="btn btn-danger" value="Guardar" />
-		    	</div>
-		    </div>
-		</form>
+			{% else %}
+
+			<div class="col-6">
+				{{ field.label_tag }} 
+				{{ field }}
+	    		<br>
+			</div>
+			{% endif %}
+
+	    {% endfor %}
+		</div>
+
+	    <!-- </table> -->
+	    <div class="row">		    	
+			<div class="col">
+	    		<a href="{% url 'ponentes' %}" class="btn btn-lg btn-secondary form-control">Cancelar</a>
+	    	</div>
+	    	<div class="col">
+	    		<input type="submit" class="btn btn-lg btn-danger" value="Guardar" />
+	    	</div>
+	    </div>
 	</div>
 </div>
+</form>
 </section>
 
 {% endblock %}

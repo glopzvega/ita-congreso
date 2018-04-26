@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap-table.css' %}">
     <link rel="stylesheet" href="{% static 'css/select2.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/select2-bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/codemirror.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/froala/css/froala_editor.pkgd.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/froala/css/froala_style.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Audiowide|Gugi|Righteous" rel="stylesheet">
     
     <style>
@@ -175,13 +178,19 @@
     <script src="{% static 'js/bootstrap-table-export.js' %}"></script>
     <script src="{% static 'js/tableExport.js' %}"></script>
     <script src="{% static 'js/lity.min.js' %}"></script>
+    <script src="{% static 'js/codemirror.min.js' %}"></script>
+    <script src="{% static 'js/xml.min.js' %}"></script>
+    <script src="{% static 'vendor/froala/js/froala_editor.pkgd.min.js' %}"></script>
 
     <script>
 
-      $("input,select,textarea").addClass("form-control")
+      $("input,select,textarea").addClass("form-control");
+
       $('[data-toggle="tooltip"]').tooltip();    
 
-      $('body').scrollspy({ target: '.navbar' , offset : 300})
+      $('body').scrollspy({ target: '.navbar' , offset : 300});
+
+      $('textarea').froalaEditor();
 
     </script>
   

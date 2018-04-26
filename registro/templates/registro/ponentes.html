@@ -30,20 +30,29 @@
 				data-toolbar="#toolbar">
 			<thead>
 				<tr>
-					<th>Nombre</th>	
+					<th data-checkbox="true"></th>
 					<th>Titulo</th>				
+					<th>Nombre</th>	
+					<th>Email</th>	
+					<th>Telefono</th>	
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for row in data %}
 				<tr>
+					<td></td>
+					<td>
+						{{ row.titulo }}
+					</td>				
 					<td>
 						<a href='{% url "ponentes_editar" row.id %}'>
 						{{ row.nombre }}
 					</a>
 					</td>	
-					<td></td>				
+					<td>{{ row.email }}</td>
+					<td>{{ row.telefono }}</td>
+
 					<td align="right">
 						<div class="dropdown">
 						  <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

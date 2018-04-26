@@ -8,6 +8,7 @@ class Ponente(models.Model):
 	email = models.EmailField(max_length=255)
 	telefono = models.CharField(max_length=20)
 	titulo = models.CharField(max_length=50)
+	resumen = models.CharField(max_length=255)
 	intro = models.TextField()
 	foto = models.ImageField(blank=True)
 

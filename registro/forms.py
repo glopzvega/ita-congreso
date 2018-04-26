@@ -7,7 +7,7 @@ class PonenteModelForm(ModelForm):
 
 	class Meta:
 		model = Ponente
-		fields = ("nombre", "titulo", "email", "telefono", "intro", "foto")
+		fields = ("titulo", "nombre", "email", "telefono", "resumen", "intro")
 
 class LugarModelForm(ModelForm):
 

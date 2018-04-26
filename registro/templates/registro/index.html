@@ -34,12 +34,19 @@ section#conferencistas
     border: 0;
     text-align: center;
 }
-section#conferencistas .card
+section#conferencistas .carta
 {
     border: 0;
     text-align: center;
     background-color: #f8f9fa;
+    padding: 1em;
 }
+
+section#conferencistas .carta > img
+{
+    width: 100%;
+}
+
 section#talleres
 {
 	background-color: #e9ecef;
@@ -128,157 +135,30 @@ section#contacto
 	<div class="row">
 		<div class="col-8 offset-2">
 			<div class="row">
+
+				{% for ponente in ponentes %}
+
 				<div class="col-4">
 
-					<div class="card" style="width: 16rem;">
-					  <img class="card-img-top rounded-circle" src="{% static '/photos/1.jpg' %}" alt="Card image cap">
-					  <div class="card-body text-center">
-					    <p class="card-text">
-					    <strong>DR. MIGUEL ARZATE PÉREZ</strong>
-					    <br>
-					    <span>					    	
-					    "MATERIALES AMIGABLES CON EL MEDIO AMBIENTE".</p>
-					    </span>
-					    </p>
-					  </div>
-					</div>
-					
-				</div>
-				<div class="col-4">
-
-					<div class="card" style="width: 16rem;">
-					  <img class="card-img-top rounded-circle" src="{% static '/photos/2.jpg' %}" alt="Card image cap">
-					  <div class="card-body text-center">
-					    <p class="card-text">
-					    <strong>BIÓ. JERÓNIMO REYES SANTIAGO</strong>
-					    <br>
-					    <span>					    	
-					    "NATURACIÓN DE EDIFICIO EN LA CIUDAD DE MÉXICO"</p>
-					    </span>
-					    </p>
-					  </div>
+					<div class="carta">
+						{% if ponente.foto %}
+						<img class="rounded-circle" src="{{ ponente.foto.url }}" alt="Card image cap">
+						{% endif %}
+						<div class="text-center">
+						    <p class="">
+							    <strong>{{ ponente.nombre }}</strong>
+							    <br>
+							    <span>							    
+							    {{ ponente.resumen }}							    
+							    </span>							    
+						    </p>
+						</div>
 					</div>					
 					
 				</div>
-				<div class="col-4">
 
-					<div class="card" style="width: 16rem;">
-					  <img class="card-img-top rounded-circle" src="{% static '/photos/3.jpg' %}" alt="Card image cap">
-					  <div class="card-body text-center">
-					    <p class="card-text">
-					    <strong>ARQ. CARLOS ANTONIO ORTÍZ GONZÁLEZ</strong>
-					    <br>
-					    <span>					    	
-					    "CONSTRUCCIÓN DE UNA PRÁCTICA DESDE LA ATMÓSFERA"</p>
-					    </span>
-					    </p>
-					  </div>
-					</div>						
-					
-				</div>
+				{% endfor %}
 
-				<div class="col-4">
-
-					<div class="card" style="width: 16rem;">
-					  <img class="card-img-top rounded-circle" src="{% static '/photos/4.jpg' %}" alt="Card image cap">
-					  <div class="card-body text-center">
-					    <p class="card-text">
-					    <strong>ARQ. CARLOS ANTONIO ORTÍZ GONZÁLEZ</strong>
-					    <br>
-					    <span>					    	
-					    "CONSTRUCCIÓN DE UNA PRÁCTICA DESDE LA ATMÓSFERA"</p>
-					    </span>
-					    </p>
-					  </div>
-					</div>						
-					
-				</div>
-
-				<div class="col-4">
-
-					<div class="card" style="width: 16rem;">
-					  <img class="card-img-top rounded-circle" src="{% static '/photos/5.jpg' %}" alt="Card image cap">
-					  <div class="card-body text-center">
-					    <p class="card-text">
-					    <strong>ARQ. CARLOS ANTONIO ORTÍZ GONZÁLEZ</strong>
-					    <br>
-					    <span>					    	
-					    "CONSTRUCCIÓN DE UNA PRÁCTICA DESDE LA ATMÓSFERA"</p>
-					    </span>
-					    </p>
-					  </div>
-					</div>						
-					
-				</div>
-
-				<div class="col-4">
-
-					<div class="card" style="width: 16rem;">
-					  <img class="card-img-top rounded-circle" src="{% static '/photos/6.jpg' %}" alt="Card image cap">
-					  <div class="card-body text-center">
-					    <p class="card-text">
-					    <strong>ARQ. CARLOS ANTONIO ORTÍZ GONZÁLEZ</strong>
-					    <br>
-					    <span>					    	
-					    "CONSTRUCCIÓN DE UNA PRÁCTICA DESDE LA ATMÓSFERA"</p>
-					    </span>
-					    </p>
-					  </div>
-					</div>						
-					
-				</div>
-
-				<div class="col-4">
-
-					<div class="card" style="width: 16rem;">
-					  <img class="card-img-top rounded-circle" src="{% static '/photos/7.jpg' %}" alt="Card image cap">
-					  <div class="card-body text-center">
-					    <p class="card-text">
-					    <strong>ARQ. CARLOS ANTONIO ORTÍZ GONZÁLEZ</strong>
-					    <br>
-					    <span>					    	
-					    "CONSTRUCCIÓN DE UNA PRÁCTICA DESDE LA ATMÓSFERA"</p>
-					    </span>
-					    </p>
-					  </div>
-					</div>						
-					
-				</div>
-
-				<div class="col-4">
-
-					<div class="card" style="width: 16rem;">
-					  <img class="card-img-top rounded-circle" src="{% static '/photos/8.jpg' %}" alt="Card image cap">
-					  <div class="card-body text-center">
-					    <p class="card-text">
-					    <strong>ARQ. CARLOS ANTONIO ORTÍZ GONZÁLEZ</strong>
-					    <br>
-					    <span>					    	
-					    "CONSTRUCCIÓN DE UNA PRÁCTICA DESDE LA ATMÓSFERA"</p>
-					    </span>
-					    </p>
-					  </div>
-					</div>						
-					
-				</div>
-
-				<div class="col-4">
-
-					<div class="card" style="width: 16rem;">
-					  <img class="card-img-top rounded-circle" src="{% static '/photos/9.jpg' %}" alt="Card image cap">
-					  <div class="card-body text-center">
-					    <p class="card-text">
-					    <strong>ARQ. CARLOS ANTONIO ORTÍZ GONZÁLEZ</strong>
-					    <br>
-					    <span>					    	
-					    "CONSTRUCCIÓN DE UNA PRÁCTICA DESDE LA ATMÓSFERA"</p>
-					    </span>
-					    </p>
-					  </div>
-					</div>						
-					
-				</div>
-				
 			</div>
 		</div>
 	</div>
