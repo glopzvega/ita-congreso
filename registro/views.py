@@ -43,6 +43,16 @@ def registros(request):
 	
 	return render(request, "registro/registros.html", context)
 
+def registros_print(request):
+
+	registros = Registro.objects.all()
+	
+	context = {
+		"data" : registros
+	}
+	
+	return render(request, "registro/registros_print.html", context)
+
 def registros_nuevo(request):
 	
 	if request.method == 'POST':
