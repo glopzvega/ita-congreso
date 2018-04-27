@@ -188,7 +188,10 @@
 
       $("body").scrollspy({ target: '.navbar' , offset : 300})
 
-      $("table").bootstrapTable();
+      $("table").bootstrapTable({
+        exportDataType: "all",
+        exportTypes: ["csv"], 
+      });
 
       $('textarea').froalaEditor();
 
