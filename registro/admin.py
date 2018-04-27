@@ -7,7 +7,7 @@ from .models import Registro, Ponente, Lugar, Conferencia
 @admin.register(Ponente)
 class AdminPonente(admin.ModelAdmin):
 	# fields = ('id', 'imagen')
-	list_display = ('id', 'nombre', 'titulo', 'resumen')
+	list_display = ('id', 'nombre', 'titulo', 'resumen', 'activo')
 
 @admin.register(Lugar)
 class AdminLugar(admin.ModelAdmin):

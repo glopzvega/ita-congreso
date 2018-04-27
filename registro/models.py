@@ -11,6 +11,7 @@ class Ponente(models.Model):
 	resumen = models.CharField(max_length=255)
 	intro = models.TextField()
 	foto = models.ImageField(blank=True)
+	activo = models.BooleanField()
 
 	def __str__(self):
 		return self.titulo + " " + self.nombre

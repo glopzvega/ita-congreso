@@ -138,6 +138,8 @@ section#contacto
 
 				{% for ponente in ponentes %}
 
+				{% if ponente.activo %}
+
 				<div class="col-4">
 
 					<div class="carta">
@@ -156,6 +158,8 @@ section#contacto
 					</div>					
 					
 				</div>
+
+				{% endif %}
 
 				{% endfor %}
 

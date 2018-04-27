@@ -1,5 +1,5 @@
 {% extends 'baseadmin.html' %}
-
+{% load static %}
 {% block content %}
 <section >
 
@@ -31,6 +31,7 @@
 			<thead>
 				<tr>
 					<th data-checkbox="true"></th>
+					<th></th>
 					<th>Titulo</th>				
 					<th>Nombre</th>	
 					<th>Email</th>	
@@ -43,11 +44,20 @@
 				<tr>
 					<td></td>
 					<td>
+						{% if row.foto %}
+						<img src="{{ row.foto.url }}" alt="Foto" style="width:50px; heigh: 50px;">
+						{% else %}
+						<img src="{% static 'img/default.png' %}" alt="Foto" style="width:50px; heigh: 50px;">
+						{% endif %}
+					</td>
+					<td>
 						{{ row.titulo }}
 					</td>				
 					<td>
 						<a href='{% url "ponentes_editar" row.id %}'>
 						{{ row.nombre }}
+						<br>
+						<small>{{ row.resumen }}</small>
 					</a>
 					</td>	
 					<td>{{ row.email }}</td>
