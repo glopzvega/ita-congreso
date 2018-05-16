@@ -8,10 +8,10 @@
 		<hr class="divider red">
 	</div>
 </div>
+	
 <div class="row">
 	
 	<div class="col-8 offset-2">		
-		
 		<form action="" method="post" enctype="multipart/form-data">
 		    {% csrf_token %}
 		    <!-- <table>    	 -->
@@ -23,7 +23,7 @@
 					{{ field.label_tag }} 
 					{{ field }}
 		    		<br>
-				</div>						
+				</div>
 		    	{% else %}
 				<div class="col-6">
 					{{ field.label_tag }} 
@@ -47,11 +47,4 @@
 </div>
 </section>
 
-{% endblock %}
-
-{% block scripts %}
-<script type="text/javascript">
-	$("#id_fecha_hora").attr("type", "date");
-	$("#id_hora").attr("type", "time");
-</script>
 {% endblock %}

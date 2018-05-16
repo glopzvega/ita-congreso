@@ -73,8 +73,6 @@ section#contacto
 
 {% block content %}
 
-<div class="row">
-	
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>    
@@ -105,7 +103,6 @@ section#contacto
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
-</div>
 </div>
 
 <section id="ciitys">
@@ -370,6 +367,28 @@ section#contacto
 	</div>
 </section>
 
+<section id="cuotas">
+	<div class="row">
+		<div class="col">			
+			<h1 class="text-center">Costos</h1>
+			<hr class="divider">
+		</div>		
+	</div>
+	<div class="row">
+		<div class="col-5 offset-1 text-center">
+			<h4>Alumnos y Exalumnos del <br>Instituto Tecnológico de Acapulco</h4>
+			<h2>
+				$500.00
+			</h2>
+		</div>
+		<div class="col-5 text-center">
+			<h4>Alumnos de otras Instituciones y <br> Público en General</h4>
+			<h2>
+				$800.00
+			</h2>
+		</div>
+	</div>
+</section>
 <section id="registro">
 	
 <div class="row">
@@ -440,6 +459,7 @@ section#contacto
 		{
 			$("#id_rfc").prop("required", true).parent(".col-6").show();
 			$("#id_nocontrol").prop("required", false).parent(".col-6").hide();
+			$("#id_institucion").prop("required", true).parent(".col-6").show();
 		}
 		else if(val == "alumno")
 		{
@@ -459,6 +479,7 @@ section#contacto
 		{
 			$("#id_rfc").prop("required", false).parent(".col-6").hide();
 			$("#id_nocontrol").prop("required", true).parent(".col-6").show();
+			$("#id_institucion").prop("required", true).parent(".col-6").show();
 			$("#id_semestre").prop("required", true).parent(".col-6").show();
 			$("#id_carrera").prop("required", false).parent(".col-6").hide();
 		}
@@ -466,6 +487,7 @@ section#contacto
 
 	$("#id_nocontrol").prop("required", false).parent(".col-6").hide();
 	$("#id_rfc").prop("required", false).parent(".col-6").hide();
+	$("#id_institucion").prop("required", false).parent(".col-6").hide();
 	$("#id_carrera").prop("required", false).parent(".col-6").hide();
 	$("#id_semestre").prop("required", false).parent(".col-6").hide();	
 

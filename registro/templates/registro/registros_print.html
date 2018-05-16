@@ -1,5 +1,11 @@
 {% extends 'baseadmin.html' %}
 
+{% block header %}
+{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
 {% block content %}
 <script>
 	
@@ -23,30 +29,16 @@ stateFormatter = function(value, row)
 		<hr class="divider red">
 	</div>
 </div>
-<div id="toolbar" class="row">
-	<div class="col">		
-		<a href="{% url 'registros_nuevo' %}" class="btn btn-danger">
-		<i class="fa fa-plus"></i>
-		Agregar Nuevo</a>
-		<br><br>		
-	</div>
-	<div class="col">
-		<a href="{% url 'registros_print' %}" class="btn btn-success">
-			<i class="fa fa-print"></i>
-			Imprimir PDF
-		</a>
-	</div>
-</div>
 <div class="row">
 	<div class="col-12">	
 	
 		<table class="table" 
-				data-search="true" 
-				data-click-to-select="true"
+				data-search="false" 
+				data-click-to-select="false"
 				data-show-columns="false"
-				data-pagination="true" 
+				data-pagination="false" 
 				data-height="450"
-				data-show-export="true"
+				data-show-export="false"
 				data-toolbar="#toolbar">
 			<thead>
 				<tr>
@@ -55,10 +47,8 @@ stateFormatter = function(value, row)
 					<th data-field="email" data-sortable="true">Email</th>
 					<th data-field="tipo" data-sortable="true">Tipo</th>
 					<th data-field="identificacion" data-sortable="true">Identificación</th>	
-					<th data-field="semestre" data-sortable="true">Semestre</th>
-					<th data-field="carrera" data-sortable="true">Carrera</th>
 					<th data-field="state" data-sortable="true" data-formatter="stateFormatter">Estatus</th>	
-					<th></th>
+					
 				</tr>
 			</thead>
 			<tbody>
@@ -70,10 +60,10 @@ stateFormatter = function(value, row)
 						</a>
 					</td>
 					<td>
-						<a href='{% url "registros_editar" row.id %}'>{{ row.apellidop }} {{ row.apellidom }} </a>
+						<a href=''>{{ row.apellidop }} {{ row.apellidom }} </a>
 					</td>
 					<td>
-						<a href='{% url "registros_editar" row.id %}'>{{ row.email }} </a>
+						<a href=''>{{ row.email }} </a>
 					</td>
 					<td>
 						{% if row.tipo_registro == 'profesional' %}
@@ -101,27 +91,10 @@ stateFormatter = function(value, row)
 							{% endif %}
 
 						{% endif %}
-					</td>
-					<td>
-						{{row.semestre}}
 					</td>	
-					<td>
-						{{ row.carrera }}
-					</td>
 					<td>										
 						{{ row.state }}
-					</td>				
-					<td align="right">
-						<div class="dropdown">
-						  <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    Acciones
-						  </button>
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						    <a class="dropdown-item" href='{% url "registros_editar" row.id %}'>Editar</a>						    
-						    {# <a class="dropdown-item" href="{% url 'eliminar' prod.id %}">Eliminar</a> #}
-						  </div>
-						</div>						
-					</td>
+					</td>					
 				</tr>
 				{% endfor %}	
 			</tbody>
@@ -133,6 +106,7 @@ stateFormatter = function(value, row)
 
 
 {% block scripts %}
-
-
+<script>	
+window.print();
+</script>
 {% endblock %}

@@ -45,7 +45,8 @@
 
         section#header img
         {
-            height: 80px;
+            /*height: 80px;*/
+            width: 100%;
         }
 
         section#header .maintitulo
@@ -91,22 +92,11 @@
 
   {% block header %}
 
-  <section id="header" class="d-none d-md-block">
+  <section id="header">
       
       <div class="row">
-          <div class="col-2 offset-2">
-              <img src='{% static "/logos/sep.png" %}' alt="sep">
-          </div>
-          <div class="col-4 text-center text-muted">
-              <h1 class="maintitulo">TECNOLÓGICO NACIONAL DE MÉXICO
-              <br>
-              INSTITUTO TECNOLÓGICO DE ACAPULCO</h1>
-          </div>
-          <div class="col-1">
-              <img src='{% static "/logos/ita.png" %}' alt="ita" >
-          </div>
-          <div class="col-2">
-              <img src='{% static "/logos/tnm.png" %}' alt="ita" style="height: " >
+          <div class="col-12 col-md-8 offset-md-2">
+              <img src='{% static "/img/header.png" %}' alt="header" style="width:100%;">
           </div>
       </div>
 
@@ -117,7 +107,7 @@
   {% block navbar %}
       
     
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-secondary">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -128,10 +118,16 @@
                 <a class="nav-link" href="/registros">Registros <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="/pagos">Pagos</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="/ponentes">Ponentes</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/conferencias">Conferencias</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/talleres">Talleres</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/lugares">Lugares</a>

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import RegistroModelForm, LugarModelForm, PonenteModelForm, ConferenciaModelForm
+from .forms import RegistroModelForm, LugarModelForm, PonenteModelForm, ConferenciaModelForm, TallerModelForm
 
 from .models import Lugar, Ponente, Conferencia, Registro
 
@@ -33,6 +33,30 @@ def index(request):
 
 	return render(request, "registro/index.html", context)
 
+def pagos(request):
+
+	registros = Registro.objects.all()
+	
+	context = {
+		"data" : registros
+	}
+	
+	return render(request, "registro/pagos.html", context)
+
+def registros_pago(request, id):
+
+	registro = get_object_or_404(Registro, pk=id)
+	registro.state = "done"
+	registro.save()
+
+	registros = Registro.objects.all()
+	
+	context = {
+		"data" : registros
+	}
+	
+	return render(request, "registro/pagos.html", context)
+
 def registros(request):
 
 	registros = Registro.objects.all()
@@ -52,6 +76,16 @@ def registros_print(request):
 	}
 	
 	return render(request, "registro/registros_print.html", context)
+
+def pagos_print(request):
+
+	registros = Registro.objects.all()
+	
+	context = {
+		"data" : registros
+	}
+	
+	return render(request, "registro/pagos_print.html", context)
 
 def registros_nuevo(request):
 	
@@ -176,13 +210,23 @@ def ponentes_editar(request, id):
 
 def conferencias(request):
 
-	registros = Conferencia.objects.all()
+	registros = Conferencia.objects.filter(tipo__exact='conferencia')
 	
 	context = {
 		"data" : registros
 	}
 	
 	return render(request, "registro/conferencias.html", context)
+
+def talleres(request):
+
+	registros = Conferencia.objects.filter(tipo__exact='taller')
+	
+	context = {
+		"data" : registros
+	}
+	
+	return render(request, "registro/talleres.html", context)
 
 def conferencias_nuevo(request):
 	
@@ -194,6 +238,7 @@ def conferencias_nuevo(request):
 			# commit=False tells Django that "Don't send this to database yet.
 			# I have more things I want to do with it."
 			registro = form.save(commit=False)
+			registro.tipo = 'conferencia'
 			registro.save()
 			
 			return redirect('conferencias')
@@ -206,6 +251,29 @@ def conferencias_nuevo(request):
 	}
 	
 	return render(request, "registro/conferencias_nuevo.html", context)
+
+def talleres_nuevo(request):
+	
+	if request.method == 'POST':
+		form = TallerModelForm(request.POST, request.FILES)
+		
+		if form.is_valid():
+			# commit=False tells Django that "Don't send this to database yet.
+			# I have more things I want to do with it."
+			registro = form.save(commit=False)
+			registro.tipo = 'taller'
+			registro.save()
+			
+			return redirect('talleres')
+			
+	else:
+		form = TallerModelForm()
+
+	context = {
+		"form" : form
+	}
+	
+	return render(request, "registro/talleres_nuevo.html", context)
 
 def conferencias_editar(request, id):
 	
@@ -220,7 +288,7 @@ def conferencias_editar(request, id):
 			# Guardo el formulario
 			form.save()
 			# Devuelvo el template
-			return redirect('ponentes')
+			return redirect('conferencias')
 	
 	# Si acceso por GET
 	else:
@@ -234,6 +302,34 @@ def conferencias_editar(request, id):
 	}
 	
 	return render(request, "registro/conferencias_editar.html", context)
+
+def talleres_editar(request, id):
+	
+	registro = get_object_or_404(Conferencia, pk=id)
+	
+	# Si accedo por medio de POST a esta vista
+	if request.method == 'POST':
+		# Obtengo la informacion enviada por POST y FILES
+		form = TallerModelForm(request.POST, instance=registro)
+		# Valido el formulario
+		if form.is_valid():
+			# Guardo el formulario
+			form.save()
+			# Devuelvo el template
+			return redirect('talleres')
+	
+	# Si acceso por GET
+	else:
+		# Genero una instancia de mi ModelForm
+		# Le paso como parametro el producto que voy a enviar
+		form = TallerModelForm(instance=registro)
+
+	context = {
+		"form" : form,
+		"data" : registro
+	}
+	
+	return render(request, "registro/talleres_editar.html", context)
 
 def lugares(request):
 	

@@ -23,15 +23,9 @@ stateFormatter = function(value, row)
 		<hr class="divider red">
 	</div>
 </div>
-<div id="toolbar" class="row">
-	<div class="col">		
-		<a href="{% url 'registros_nuevo' %}" class="btn btn-danger">
-		<i class="fa fa-plus"></i>
-		Agregar Nuevo</a>
-		<br><br>		
-	</div>
+<div id="toolbar" class="row">	
 	<div class="col">
-		<a href="{% url 'registros_print' %}" class="btn btn-success">
+		<a href="{% url 'pagos_print' %}" target="_blank" class="btn btn-success">
 			<i class="fa fa-print"></i>
 			Imprimir PDF
 		</a>
@@ -112,15 +106,9 @@ stateFormatter = function(value, row)
 						{{ row.state }}
 					</td>				
 					<td align="right">
-						<div class="dropdown">
-						  <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    Acciones
-						  </button>
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						    <a class="dropdown-item" href='{% url "registros_editar" row.id %}'>Editar</a>						    
-						    {# <a class="dropdown-item" href="{% url 'eliminar' prod.id %}">Eliminar</a> #}
-						  </div>
-						</div>						
+						{% if row.state != 'done' %}
+						<a href="{% url 'registros_pago' row.id %}" class="btn btn-success">PAGAR</a>
+						{% endif %}						
 					</td>
 				</tr>
 				{% endfor %}	

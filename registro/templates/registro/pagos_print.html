@@ -1,0 +1,99 @@
+{% extends 'baseadmin.html' %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+<script>
+	
+stateFormatter = function(value, row)
+{
+	if ($.trim(value) == "draft")
+	{
+		return "Pago Pendiente";
+	}
+	else
+	{
+		return "Pagado";
+	}
+}
+</script>
+
+<div class="row">
+	<div class="col-12">	
+	
+		<table class="table table-sm" 
+				data-search="false" 
+				data-click-to-select="false"
+				data-show-columns="false"
+				data-pagination="false" 				
+				data-show-export="false"
+				data-toolbar="#toolbar">
+			<thead>
+				<tr>
+					<th data-field="nombre" data-sortable="true">Nombre</th>	
+					<th data-field="apellidop" data-sortable="true">Apellidos</th>
+					{# <th data-field="email" data-sortable="true">Email</th> #}
+					<th data-field="identificacion" data-sortable="true">Identificación</th>	
+					<th data-field="tipo" data-sortable="true">Tipo</th>
+					<th data-field="state" data-sortable="true" data-formatter="stateFormatter">Estatus</th>	
+					
+				</tr>
+			</thead>
+			<tbody>
+				{% for row in data %}
+				<tr>
+					<td>
+						<a href='{% url "registros_editar" row.id %}'>
+							{{ row.nombre }}
+						</a>
+					</td>
+					<td>
+						<a href=''>{{ row.apellidop }} {{ row.apellidom }} </a>
+					</td>
+					
+					<td>
+						{% if row.tipo_registro == 'profesional' %}
+						{{ row.rfc }}
+						{% elif row.tipo_registro == 'alumno' %}
+						{{ row.nocontrol }}
+						{% else %}
+
+							{% if row.rfc %}
+								{{ row.rfc }}
+							{% elif row.nocontrol %}
+								{{ row.nocontrol }}
+							{% endif %}
+
+						{% endif %}
+					</td>	
+					<td>
+						{% if row.tipo_registro == 'profesional' %}
+						Profesionista
+						{% elif row.tipo_registro == 'alumno' %}
+						Alumno ITA
+						{% elif row.tipo_registro == 'exalumno' %}
+						Ex-Alumno ITA
+						{% else %}
+						Alumno Externo
+						{% endif %}
+
+					</td>
+					<td>										
+						{{ row.state }}
+					</td>					
+				</tr>
+				{% endfor %}	
+			</tbody>
+		</table>
+	</div>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+<script>	
+window.print();
+</script>
+{% endblock %}

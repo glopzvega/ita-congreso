@@ -20,10 +20,26 @@ class ConferenciaModelForm(ModelForm):
 	class Meta:
 		model = Conferencia
 		labels = {
+			'nombre' : 'Titulo',
 			'duracion' : 'Duración (Horas)',
-			'fecha_hora' : 'Fecha y Hora'
+			'fecha_hora' : 'Fecha',
+			'hora' : 'Hora de Inicio',			
 		}
-		fields = ("nombre", "ponente", "lugar", "fecha_hora", "duracion", "descripcion", "foto")
+		fields = ("nombre", "ponente", "lugar", "fecha_hora", "hora", "duracion", "foto", "descripcion")
+
+class TallerModelForm(ModelForm):
+
+	class Meta:
+		model = Conferencia
+		labels = {
+			'nombre' : 'Nombre',
+			'duracion' : 'Duración (Horas)',
+			'fecha_hora' : 'Fecha',
+			'hora' : 'Hora de Inicio',		
+			'ponente' : 'Instructor'	
+		}
+		fields = ("nombre", "ponente", "lugar", "fecha_hora", "hora", "duracion", "foto", "descripcion")
+
 
 class RegistroModelForm(ModelForm):
 
@@ -32,7 +48,7 @@ class RegistroModelForm(ModelForm):
 
 	class Meta:
 		model = Registro
-		fields = ("tipo_registro", "nombre", "apellidop", "apellidom", "nocontrol", "rfc", "carrera", "semestre", "email", "telefono", "municipio", "estado")
+		fields = ("tipo_registro", "nombre", "apellidop", "apellidom", "nocontrol", "rfc", "institucion", "carrera", "semestre", "email", "telefono", "municipio", "estado")
 		# fields = "__all__" #("precio",)
 		# exlude = ("imagen",)
 		labels = {
@@ -40,7 +56,10 @@ class RegistroModelForm(ModelForm):
 			'apellidop' : 'Apellido Paterno',
 			'apellidom' : 'Apellido Materno',
 			'nocontrol' : 'No Control',
-			'rfc' : 'Rfc',
+			'rfc' : 'RFC',
+			'telefono' : 'Teléfono (con Clave Lada)',
+			'institucion' : 'Empresa / Institución',
+
 		}
 		widgets = {
 			# 'descripcion' : Textarea(attrs={'cols':80, 'rows':5}),

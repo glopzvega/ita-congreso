@@ -6,6 +6,9 @@ from . import views
 urlpatterns = [
 	
 	path('', views.index, name="index"),	
+	path('pagos/', views.pagos, name="pagos"),
+	path('pagos/print/', views.pagos_print, name="pagos_print"),
+	path('registros/pago/<int:id>', views.registros_pago, name="registros_pago"),
 	path('registros/', views.registros, name="registros"),
 	path('registros/print/', views.registros_print, name="registros_print"),
 	path('registros/nuevo', views.registros_nuevo, name="registros_nuevo"),
@@ -16,6 +19,9 @@ urlpatterns = [
 	path('conferencias/', views.conferencias, name="conferencias"),
 	path('conferencias/nuevo/', views.conferencias_nuevo, name="conferencias_nuevo"),
 	path('conferencias/editar/<int:id>', views.conferencias_editar, name="conferencias_editar"),
+	path('talleres/', views.talleres, name="talleres"),
+	path('talleres/nuevo/', views.talleres_nuevo, name="talleres_nuevo"),
+	path('talleres/editar/<int:id>', views.talleres_editar, name="talleres_editar"),
 	path('lugares/', views.lugares, name="lugares"),
 	path('lugares/nuevo/', views.lugares_nuevo, name="lugares_nuevo"),
 	path('lugares/editar/<int:id>', views.lugares_editar, name="lugares_editar"),
