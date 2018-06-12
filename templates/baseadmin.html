@@ -246,7 +246,9 @@
       $('textarea').froalaEditor();
 
       //Remover Alerta Pago Froalla Editor
-      $(".fr-wrapper.show-placeholder").find("div>a").parent().remove()
+      $(".fr-wrapper.show-placeholder").each(function(el){
+        $(el).find("div>a").parent().remove()
+      })
 
     </script>
   
