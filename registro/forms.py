@@ -12,6 +12,12 @@ class PonenteModelForm(ModelForm):
 		}
 		fields = ("ponencia", "horario", "titulo", "nombre", "email", "telefono", "resumen", "activo", "intro")
 
+	def __init__(self, *args, **kwargs):
+		user = kwargs.pop('user')
+		super(PonenteModelForm, self).__init__(*args, **kwargs)
+		self.fields['horario'].queryset = Horario.objects.filter(user__exact=user).order_by('sala', 'fecha', 'hora')
+
+
 class LugarModelForm(ModelForm):
 
 	class Meta:

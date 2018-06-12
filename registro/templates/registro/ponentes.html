@@ -32,8 +32,8 @@
 				<tr>
 					<th data-checkbox="true"></th>
 					<th></th>
-					<th>Conferencia</th>				
 					<th>Ponente</th>	
+					<th>Conferencia</th>				
 					<th>Horario</th>	
 					<th>Contacto</th>	
 					<th>Visible</th>
@@ -52,15 +52,17 @@
 						{% endif %}
 					</td>
 					<td>
-						{{ row.ponencia }}
-					</td>				
+						<a href='{% url "ponentes_editar" row.id %}'>
+							{{ row.titulo }} {{ row.nombre }}
+							<br>
+							<small>{{ row.resumen }}</small>
+						</a>
+					</td>	
 					<td>
 						<a href='{% url "ponentes_editar" row.id %}'>
-						{{ row.titulo }} {{ row.nombre }}
-						<br>
-						<small>{{ row.resumen }}</small>
-					</a>
-					</td>	
+						{{ row.ponencia }}
+						</a>
+					</td>				
 					<td>{{ row.horario }}</td>
 					<td>{{ row.email }} {{ row.telefono }}</td>
 					<td>{{ row.activo }}</td>

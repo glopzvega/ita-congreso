@@ -15,9 +15,9 @@ class AdminLugar(admin.ModelAdmin):
 	list_display = ('id', 'nombre')
 
 @admin.register(Horario)
-class AdminLugar(admin.ModelAdmin):
+class AdminHorario(admin.ModelAdmin):
 	# fields = ('id', 'imagen')
-	list_display = ('id', 'lugar', 'sala', 'fecha', 'hora', 'hora_fin')
+	list_display = ('id', 'sala', 'fecha', 'hora', 'hora_fin', 'user')
 
 @admin.register(Conferencia)
 class AdminConferencia(admin.ModelAdmin):

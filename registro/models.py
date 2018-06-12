@@ -11,7 +11,8 @@ class Lugar(models.Model):
 
 class Horario(models.Model):
 	
-	lugar = models.ForeignKey(Lugar, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)	
+	# lugar = models.ForeignKey(Lugar, on_delete=models.CASCADE)
 	sala = models.CharField(max_length=255)
 	fecha = models.DateField()
 	dia = models.CharField(max_length=10, choices=[("Dom", "Domingo"),
@@ -25,7 +26,7 @@ class Horario(models.Model):
 	hora_fin = models.TimeField()
 
 	def __str__(self):
-		return "Sala " + self.sala + " " + str(self.dia) + " " + str(self.fecha) + " " + str(self.hora) + " - " + str(self.hora_fin)
+		return self.sala + " " + str(self.dia) + " " + str(self.fecha) + " " + str(self.hora) + " - " + str(self.hora_fin)
 
 class Ponente(models.Model):
 

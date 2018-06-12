@@ -268,7 +268,7 @@ def ponentes_nuevo(request):
 			return redirect('ponentes')
 			
 	else:
-		form = PonenteModelForm()
+		form = PonenteModelForm(user=request.user)
 
 	context = {
 		"form" : form
