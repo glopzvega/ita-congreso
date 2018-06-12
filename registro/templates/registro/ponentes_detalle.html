@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block styles %}
+
+<style>
+	.image
+	{
+		width: 200px;
+	}
+</style>
+
+{% endblock %}
+
+{% block content %}
+<section>
+
+<div class="row">
+	<div class="col text-center">
+		<h1>Información del Ponente</h1>
+		<hr class="divider red">
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-4 offset-4 text-center">
+		{% if data.foto %}
+		<img src="{{ data.foto.url }}" class="image rounded-circle" alt="foto del Ponente">
+		{% else %}
+		<img src="{% static 'img/default.png' %}" class="image" alt="Imagen Ponente Default" style="width: 100%;">	
+		{% endif %}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col text-center">
+		<br>			
+		<h1>{{ data.nombre }}</h1>
+		<p>			
+			<i>{{ data.resumen }}</i>
+		</p>
+	</div>
+</div>
+	
+<div class="row">
+	<div class="col">
+	{% autoescape off %}
+		{{ data.intro }}
+	{% endautoescape %}
+	</div>
+</div>
+{% endblock %}

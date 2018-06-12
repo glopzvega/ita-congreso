@@ -56,3 +56,29 @@
 </section>
 
 {% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+
+	$("#id_lugar").on("change", function(){
+		let val = $(this).val()
+		if(val != "")
+		{
+			$.getJSON("/horarios/" + val, function(res){
+				console.log(res)
+
+				if(res.length > 0)
+				{
+					let opts = ""
+					$.each(res, function(idx, val){
+
+					})
+				}
+			})
+		}
+	})
+
+	$("#id_fecha_hora").attr("type", "date");
+	$("#id_hora, #id_hora_fin").attr("type", "time");
+</script>
+{% endblock %}
+

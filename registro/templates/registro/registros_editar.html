@@ -1,41 +1,154 @@
 {% extends 'baseadmin.html' %}
-{% block content %}
-<section>
 
+{% load static %}
+
+{% block content %}
+
+<section id="registro">
+	
 <div class="row">
-	<div class="col text-center">
-		<h1>Edición de Datos</h1>
+	<div class="col-8 offset-2">
+		<h2 class="text-center">2do Congreso Internacional de Innovación, Tecnología y Sustentabilidad (CIITYS) 2018</h2>
+		<h3 class="text-center text-muted">Registro</h3>
 		<hr class="divider red">
 	</div>
 </div>
-	
-<div class="row">
-	
-	<div class="col-10 offset-1">		
+
+<row>	
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-danger">
+        	{{ message.error }}
+        </div>
+    {% endfor %}
+{% endif %}
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+</row>
+
+
+<div class="row">		
+	<div class="col-8 offset-2">
 		<form action="" method="post" enctype="multipart/form-data">
-		    {% csrf_token %}
-		    <!-- <table>    	 -->
-			<div class="row">				
-		    {% for field in form %}
+			{% csrf_token %}
+			<!-- <table>    	 -->
 			
+			<div class="row">
+
+			{% for field in form %}			
+
 				<div class="col-6">
 					{{ field.label_tag }} 
 					{{ field }}
-		    		<br>
+					<br>
 				</div>
+				
+				<!-- {% if forloop.counter|divisibleby:2 %}
+				</div>
+				<div class="row">
+				{% endif %} -->
 
-		    {% endfor %}
-			</div>
-
-		    <!-- </table> -->
+			{% endfor %}
+			</div>			
 		    <div class="row">		    	
-				<div class="col-6 offset-3">
-		    		<input type="submit" class="btn btn-danger" value="Guardar" />
+				<div class="col-4 offset-2">
+		    		<input type="button" class="back btn btn-lg btn-secondary" value="REGRESAR" />
+		    		{# <a href="/registros" class="btn btn-lg btn-secondary">REGRESAR</a> #}
+		    	</div>
+				<div class="col-4">
+		    		<input type="submit" class="btn btn-lg btn-danger" value="GUARDAR CAMBIOS" />
 		    	</div>
 		    </div>
-		</form>
+		</form>			
 	</div>
 </div>
+
 </section>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+
+	$("#id_nocontrol").prop("required", false).parent(".col-6").hide();
+	$("#id_rfc").prop("required", false).parent(".col-6").hide();
+
+	$(".btn.back").on("click", function(e){
+		e.preventDefault();
+		location.href = "/registros";
+	});
+
+	function actualizar_tipo_vista()
+	{
+		let val = $("#id_tipo_registro").val()
+		if(val == "profesional")
+		{
+			$("#id_rfc").prop("required", true).parent(".col-6").show();
+			$("#id_nocontrol").prop("required", false).parent(".col-6").hide();			
+			$("#id_institucion").prop("required", true).parent(".col-6").show();
+			$("#id_carrera").prop("required", false).parent(".col-6").hide();
+			$("#id_semestre").prop("required", false).parent(".col-6").hide();
+		}
+		else
+		{
+			if(val == "alumno" || val == "alumno2" )
+			{
+				$("#id_semestre").prop("required", true).parent(".col-6").show();
+			}
+
+			if(val == "alumno" || val == "exalumno" )
+			{	
+				$("#id_institucion").val("ITA")
+				$("#id_institucion").prop("required", false).parent(".col-6").hide()
+
+				$("#id_carrera").prop("required", true).parent(".col-6").show();
+			}
+			else //alumno otra institucion
+			{				
+				$("#id_institucion").prop("required", true).parent(".col-6").show();
+
+				$("#id_carrera").prop("required", false).parent(".col-6").hide();
+			}
+
+			if (val == "exalumno")
+			{
+				$("#id_rfc").prop("required", false).parent(".col-6").show();				
+			}
+			else
+			{
+				$("#id_rfc").prop("required", false).parent(".col-6").hide();
+			}
+
+			$("#id_nocontrol").prop("required", true).parent(".col-6").show();
+		}
+	};
+
+	actualizar_tipo_vista();
+
+	$("#id_tipo_registro").on("change", function(){
+		// alert($(this).val())
+		$("#id_institucion").val("")
+		actualizar_tipo_vista();
+	});
+	
+	$(".registro").on("click", function(e){
+		e.preventDefault();
+		lity("/registrar/")
+	});
+
+</script>
 
 {% endblock %}

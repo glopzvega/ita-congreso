@@ -1,9 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Ponente(models.Model):
 
+	TIPOS = [
+		("ponente", "Ponente"),
+		("profesor", "Profesor"),
+	]
 	nombre = models.CharField(max_length=255)
 	email = models.EmailField(max_length=255)
 	telefono = models.CharField(max_length=20)
@@ -12,6 +17,7 @@ class Ponente(models.Model):
 	intro = models.TextField()
 	foto = models.ImageField(blank=True)
 	activo = models.BooleanField()
+	tipo = models.CharField(max_length=255, choices=TIPOS, default="ponente")
 
 	def __str__(self):
 		return self.titulo + " " + self.nombre
@@ -22,16 +28,48 @@ class Lugar(models.Model):
 	def __str__(self):
 		return self.nombre
 
+class Horario(models.Model):
+	
+	lugar = models.ForeignKey(Lugar, on_delete=models.CASCADE)
+	sala = models.CharField(max_length=255)
+	fecha = models.DateField()
+	hora = models.TimeField()
+	hora_fin = models.TimeField()
+
+	def __str__(self):
+		return self.sala + " " + str(self.fecha) + " " + str(self.hora) + " - " + str(self.hora_fin)
+
 class Conferencia(models.Model):
+
+	CARRERAS = [
+		("arquitectura", "Arquitectura"),
+		("bioquimica", "Ingeniería Bioquímica"),
+		("electromecanica", "Ingeniería Electromecánica"),
+		("sistemas", "Ingeniería en Sistemas Computacionales"),
+		("gestion", "Ingenieria en Gestión Empresarial"),
+		("administracion", "Licenciatura en Administración"),
+		("contabilidad", "Contador Público"),
+	]
+
+	fecha_registro = models.DateField(auto_now_add=True)
+	fecha_modificacion = models.DateField(auto_now=True)
+	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 	nombre = models.CharField(max_length=255)	
+	requisitos = models.CharField(max_length=255, blank=True, null=True)
+	objetivo = models.TextField()
 	descripcion = models.TextField()
-	ponente = models.ForeignKey(Ponente, models.SET_NULL, blank=True, null=True)
-	lugar = models.ForeignKey(Lugar, models.SET_NULL, blank=True, null=True)
-	fecha_hora = models.DateField(blank=True, null=True)	
-	hora = models.TimeField(blank=True, null=True)	
-	duracion = models.DecimalField(max_digits=5, decimal_places=2, default=1)
-	foto = models.ImageField(blank=True)
+	ponente = models.ForeignKey(Ponente, models.CASCADE, null=True)
+	lugar = models.ForeignKey(Lugar, models.CASCADE, null=True)
+	sala = models.CharField(max_length=255, null=True)
+	fecha_hora = models.DateField()	
+	duracion = models.IntegerField()
+	fecha_fin = models.DateField()
+	hora = models.TimeField()	
+	hora_fin = models.TimeField()
+	carrera = models.CharField(max_length=255, choices=CARRERAS)	
+	foto = models.ImageField(blank=True, null=True)
 	tipo = models.CharField(max_length=20, choices=[("conferencia", "Conferencia"), ("taller", "Taller")])	
+	horario = models.ForeignKey(Horario, on_delete=models.SET_NULL, null=True)
 
 	def __str__(self):
 		return self.nombre
@@ -109,15 +147,19 @@ class Registro(models.Model):
 		("draft", "Pendiente"),
 		("done", "Confirmado")
 	]
-	
+
+	fecha_registro = models.DateField(auto_now_add=True)
+	fecha_modificacion = models.DateField(auto_now=True)
+	fecha_pago = models.DateField(null=True, blank=True)
+	# user = models.ForeignKey(User, on_delete=models.CASCADE)
 	nombre = models.CharField(max_length=255)
 	apellidop = models.CharField(max_length=255)
 	apellidom = models.CharField(max_length=255)
-	nocontrol = models.CharField(max_length=255)
-	rfc = models.CharField(max_length=255)
+	nocontrol = models.CharField(max_length=255, null=True, blank=True)
+	rfc = models.CharField(max_length=255, null=True, blank=True)
 	institucion = models.CharField(max_length=255)
-	carrera = models.CharField(max_length=255, choices=CARRERAS)
-	semestre = models.CharField(max_length=255, choices=SEMESTRES)
+	carrera = models.CharField(max_length=255, choices=CARRERAS, null=True, blank=True)
+	semestre = models.CharField(max_length=255, choices=SEMESTRES, null=True, blank=True)
 	email = models.EmailField(max_length=255)
 	telefono = models.CharField(max_length=10)
 	municipio = models.CharField(max_length=255)	

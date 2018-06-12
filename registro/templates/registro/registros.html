@@ -5,6 +5,7 @@
 	
 stateFormatter = function(value, row)
 {
+	// return value;
 	if ($.trim(value) == "draft")
 	{
 		return "Pago Pendiente";
@@ -43,15 +44,16 @@ stateFormatter = function(value, row)
 		<table class="table" 
 				data-search="true" 
 				data-click-to-select="true"
-				data-show-columns="false"
-				data-pagination="true" 
-				data-height="450"
+				data-show-columns="true"
+				data-pagination="true" 				
 				data-show-export="true"
 				data-toolbar="#toolbar">
 			<thead>
 				<tr>
 					<th data-field="nombre" data-sortable="true">Nombre</th>	
 					<th data-field="apellidop" data-sortable="true">Apellidos</th>
+					<th data-field="fecha_registro" data-sortable="true">Registrado</th>
+					<th data-field="fecha_modificacion" data-sortable="true">Modificado</th>
 					<th data-field="email" data-sortable="true">Email</th>
 					<th data-field="tipo" data-sortable="true">Tipo</th>
 					<th data-field="identificacion" data-sortable="true">Identificación</th>	
@@ -71,6 +73,12 @@ stateFormatter = function(value, row)
 					</td>
 					<td>
 						<a href='{% url "registros_editar" row.id %}'>{{ row.apellidop }} {{ row.apellidom }} </a>
+					</td>
+					<td>
+						{{ row.fecha_registro }}
+					</td>
+					<td>
+						{{ row.fecha_modificacion }}
 					</td>
 					<td>
 						<a href='{% url "registros_editar" row.id %}'>{{ row.email }} </a>

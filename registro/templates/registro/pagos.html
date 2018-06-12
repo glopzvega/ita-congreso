@@ -2,6 +2,46 @@
 
 {% block content %}
 <script>
+
+window.pagoEvents = {
+	"click .pago" : function(e, value, row, index){
+		e.preventDefault()
+		console.log(row.id)
+		actualizar_pago(row, index);
+	}
+}
+
+pagoFormatter = function(value, row){	
+	if($.trim(value) == "None")
+		value = "Pendiente"	
+	return value
+}
+
+semestreFormatter = function(value, row){	
+	if($.trim(value) == "None")
+		value = "-"	
+	return value
+}
+
+carreraFormatter = function(value, row){	
+	if($.trim(value) == "sistemas")
+		value = "INGENIERÍA EN SISTEMAS COMPUTACIONALES"
+	else if($.trim(value) == "bioquimica")
+		value = "INGENIERÍA EN BIOQUÍMICA"
+	else if($.trim(value) == "electromecanica")
+		value = "INGENIERÍA EN ELECTROMECÁNICA"
+	else if($.trim(value) == "arquitectura")
+		value = "ARQUITECTURA"
+	else if($.trim(value) == "administracion")
+		value = "LICENCIATURA EN ADMINISTRACIÓN"
+	else if($.trim(value) == "contabilidad")
+		value = "LICENCIATURA EN CONTADURÍA"
+	else if($.trim(value) == "gestion")
+		value = "INGENIERÍA EN GESTIÓN EMPRESARIAL"
+	else
+		value = "-"
+	return value
+}
 	
 stateFormatter = function(value, row)
 {
@@ -12,6 +52,14 @@ stateFormatter = function(value, row)
 	else
 	{
 		return "Pagado";
+	}
+}
+
+actionFomatter = function(value, row)
+{
+	if($.trim(row.state) != "done")
+	{
+		return "<a href='#' class='btn btn-success pago'>PAGAR</a>"
 	}
 }
 </script>
@@ -34,7 +82,7 @@ stateFormatter = function(value, row)
 <div class="row">
 	<div class="col-12">	
 	
-		<table class="table" 
+		<table class="table registros-pago" 
 				data-search="true" 
 				data-click-to-select="true"
 				data-show-columns="false"
@@ -44,30 +92,36 @@ stateFormatter = function(value, row)
 				data-toolbar="#toolbar">
 			<thead>
 				<tr>
+					<th data-field="id" data-visible="false"></th>
 					<th data-field="nombre" data-sortable="true">Nombre</th>	
-					<th data-field="apellidop" data-sortable="true">Apellidos</th>
+					<th data-field="apellidop" data-sortable="true">Apellidos</th>					
+					<th data-field="fecha_pago" data-formatter="pagoFormatter" data-sortable="true">Fecha Pago</th>
 					<th data-field="email" data-sortable="true">Email</th>
-					<th data-field="tipo" data-sortable="true">Tipo</th>
+					<th data-field="tipo_registro" data-sortable="true">Tipo</th>
 					<th data-field="identificacion" data-sortable="true">Identificación</th>	
-					<th data-field="semestre" data-sortable="true">Semestre</th>
-					<th data-field="carrera" data-sortable="true">Carrera</th>
+					<th data-field="semestre" data-formatter="semestreFormatter" data-sortable="true">Semestre</th>
+					<th data-field="carrera" data-formatter="carreraFormatter" data-sortable="true">Carrera</th>
 					<th data-field="state" data-sortable="true" data-formatter="stateFormatter">Estatus</th>	
-					<th></th>
+					<th data-field="actions" data-formatter="actionFomatter" data-events="pagoEvents"></th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for row in data %}
 				<tr>
 					<td>
-						<a href='{% url "registros_editar" row.id %}'>
-							{{ row.nombre }}
-						</a>
+						{{row.id}}
+					</td>
+					<td>						
+						{{ row.nombre }}						
 					</td>
 					<td>
-						<a href='{% url "registros_editar" row.id %}'>{{ row.apellidop }} {{ row.apellidom }} </a>
+						{{ row.apellidop }} {{ row.apellidom }}
 					</td>
 					<td>
-						<a href='{% url "registros_editar" row.id %}'>{{ row.email }} </a>
+						{{ row.fecha_pago }}
+					</td>
+					<td>
+						{{ row.email }}
 					</td>
 					<td>
 						{% if row.tipo_registro == 'profesional' %}
@@ -106,9 +160,9 @@ stateFormatter = function(value, row)
 						{{ row.state }}
 					</td>				
 					<td align="right">
-						{% if row.state != 'done' %}
-						<a href="{% url 'registros_pago' row.id %}" class="btn btn-success">PAGAR</a>
-						{% endif %}						
+						{# {% if row.state != 'done' %} #}
+						<!-- <a href="{% url 'registros_pago' row.id %}" class="btn btn-success pago">PAGAR</a> -->
+						{# {% endif %}		 #}
 					</td>
 				</tr>
 				{% endfor %}	
@@ -122,5 +176,18 @@ stateFormatter = function(value, row)
 
 {% block scripts %}
 
+<script>
+	
+function actualizar_pago(row, index)
+{
+	$.getJSON("/registros/pago/" + row.id, function(res){
+		console.log(res)
+		if(res.success)
+		{
+			$(".registros-pago").bootstrapTable("updateRow", {"index" : index, "row" : res.data[0]});
+		}
+	})
+}
+</script>
 
 {% endblock %}

@@ -78,6 +78,22 @@
           border-bottom: 2px solid #3ca3b8;
         }
 
+        .dropdown-menu.show
+        {
+          z-index: 9999;
+        }
+
+        .navbar-dark .navbar-nav .dropdown-menu.show>.nav-link
+        {
+          color: #868e96;
+        }
+
+        .navbar-dark .navbar-nav .dropdown-menu.show > .nav-link:hover
+        {
+          background-color: #1e4c79;
+          color: white;
+        }
+
 
        
     </style>
@@ -114,14 +130,25 @@
           <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
             <a class="navbar-brand" href="/">CIITyS 2018</a>
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+              {% if user.is_authenticated %}  
+
+              {% if user.is_superuser and user.is_staff %}
+
               <li class="nav-item">
-                <a class="nav-link" href="/registros">Registros <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/registros">Registros </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/pagos">Pagos</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/ponentes">Ponentes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profesores">Profesores</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profesores">Profesores</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/conferencias">Conferencias</a>
@@ -131,12 +158,47 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/lugares">Lugares</a>
-              </li>              
-              {% if user.is_authenticated %}             
-              
+              </li>
+
+              {% elif user.is_staff %}
               <li class="nav-item">
-                <a class="nav-link" href="/logout">Salir</a>
-              </li> 
+                <a class="nav-link" href="/registros">Registros </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/ponentes">Ponentes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/conferencias">Conferencias</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profesores">Profesores</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/talleres">Talleres</a>
+              </li>
+              {% elif user.is_superuser %}
+              <li class="nav-item">
+                <a class="nav-link" href="/registros">Registros </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/pagos">Pagos</a>
+              </li>
+
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="/registros">Registros <span class="sr-only">(current)</span></a>
+              </li>
+
+              {% endif %} 
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ user }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a class="nav-link" href="/logout">Salir</a>          
+                </div>
+              </li>
               
               {% else %}
 
@@ -163,7 +225,7 @@
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/lity.min.js' %}"></script>

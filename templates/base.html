@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{% static 'css/codemirror.min.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/froala/css/froala_editor.pkgd.min.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/froala/css/froala_style.css' %}">
-    <link href="https://fonts.googleapis.com/css?family=Audiowide|Gugi|Righteous" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Audiowide|Gugi|Righteous|Open+Sans|Roboto" rel="stylesheet">
     
     <style>
 
@@ -77,6 +77,21 @@
           border-bottom: 2px solid white; /*#082f6f #3ca3b8;*/
         }
 
+        .dropdown-menu.show
+        {
+          z-index: 9999;
+        }
+
+        .navbar-dark .navbar-nav .dropdown-menu.show>.nav-link
+        {
+          color: #868e96;
+        }
+
+        .navbar-dark .navbar-nav .dropdown-menu.show > .nav-link:hover
+        {
+          background-color: #1e4c79;
+          color: white;
+        }
 
        
     </style>
@@ -126,10 +141,13 @@
                 <a class="nav-link" href="#talleres">Talleres</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#registro">Registro</a>
+                <a class="nav-link" href="#cuotas">Costos</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#contacto">Contacto</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link open" href="/registros/nuevo" target="_blank">Registrate</a>
               </li>
               {% if user.is_authenticated %}
               
@@ -137,14 +155,19 @@
                 <a class="nav-link" href="/registros">Admin</a>
               </li>
 
-              <li class="nav-item">
-                <a class="nav-link" href="/logout">Salir</a>
-              </li> 
-              
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ user }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a class="nav-link" href="/logout">Salir</a>          
+                </div>
+              </li>
+
               {% else %}
 
               <li class="nav-item">
-                <a class="nav-link" href="/login">Acceder</a>
+                <a class="nav-link" href="/login">Login</a>
               </li>
 
               {% endif %}
@@ -176,6 +199,10 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/bootstrap-table.js' %}"></script>
     <script src="{% static 'js/bootstrap-table-export.js' %}"></script>
+
+    <script src="{% static 'js/moment.min.js' %}"></script>
+    <script src="{% static 'js/moment-with-locales.min.js' %}"></script>
+    
     <script src="{% static 'js/tableExport.js' %}"></script>
     <script src="{% static 'js/lity.min.js' %}"></script>
     <script src="{% static 'js/codemirror.min.js' %}"></script>
@@ -191,6 +218,11 @@
       $('body').scrollspy({ target: '.navbar' , offset : 300});
 
       $('textarea').froalaEditor();
+
+      $(".nav-link.open").on("click", function(e){
+        // e.preventDefault()
+        // lity($(this).attr("href"));
+      })
 
     </script>
   

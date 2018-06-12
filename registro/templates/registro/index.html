@@ -12,9 +12,22 @@
 	text-shadow: 2px 2px #464a4e;	
 }
 
-.carousel-caption h1.titulo
-{	
-	font-family: 'Righteous', cursive;
+.carousel-caption h3
+{
+	font-family: 'Arial', sans-serif;	
+	font-weight: bold;
+	font-size: 3em;	
+	text-shadow: 2px 2px #464a4e;	
+	text-transform: uppercase;
+}
+
+.carousel-caption p
+{
+	font-family: 'Arial', sans-serif;	
+	font-weight: bold;
+	font-size: 2.3em;	
+	text-shadow: 2px 2px #464a4e;	
+	/*text-transform: uppercase;*/
 }
 
 section#ciitys
@@ -80,18 +93,19 @@ section#contacto
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img class="d-block w-100" src="{% static 'img/landing7.jpg' %}" alt="First slide">
-      <div class="carousel-caption d-none d-md-block">
-      	<h1 class="display-4">
-      		2o Congreso Internacional de Innovación Tecnología y Sustentabilidad       		
-      	</h1>
-      	<h1 class="display-3">CIITyS 2018</h1>
-      	<!-- <h1 class="display-4">
-      		Una visión multidisciplinaria
-      	</h1>-->
-      	<h1 class="display-5">      		
-      		Del 13 al 17 de Noviembre
-      	</h1>
-	    <a href="#registro" class="btn btn-danger btn-lg">REGISTRARSE</a>
+      <div class="carousel-caption d-none d-md-block text-right">
+      	<h1 class="display-1 text-warning">CIITYS 2018</h1>
+      	<h3 class="display-4">
+      		<span class="text-warning">2DO</span> Congreso Internacional de Innovación Tecnología y Sustentabilidad    
+      	</h3>
+      	<div class="text-center" style="position:absolute; bottom:0; left: 0;">
+      		<div class="display-3 text-warning" style="font-weight:bold; text-shadow:2px 2px #464a4e;">50</div>
+      		<p style="font-size: 1.5em;">Conferencias Magistrales <br> Nacionales e Internacionales <br> Talleres y Exposiciones</p>
+      	</div>
+      	<p>      		
+  		<i class="" style="color: #e4a128;">"Una visión multidisciplinaria"</i>
+      	</p>  		
+	    <a href="#registro" class="btn btn-warning btn-lg">REGISTRARSE</a>
 	  </div>
     </div>    
   </div>
@@ -133,23 +147,27 @@ section#contacto
 		<div class="col-8 offset-2">
 			<div class="row">
 
-				{% for ponente in ponentes %}
+				{% for conf in conferencias %}
 
-				{% if ponente.activo %}
+				{% if conf.ponente.activo %}
 
 				<div class="col-4">
 
 					<div class="carta">
-						{% if ponente.foto %}
-						<img class="rounded-circle" src="{{ ponente.foto.url }}" alt="Card image cap">
+						{% if conf.ponente.foto %}
+						<a href="{% url 'ponentes_detalle' conf.ponente.id %}" target="_blank" class="ponentes_detalle" style="display:inline-block; width:100%;"><img class="rounded-circle" src="{{ conf.ponente.foto.url }}" alt="Card image cap" style="width:100%;"></a>
 						{% endif %}
-						<div class="text-center">
+						<div class="text-center" style="margin-top: 1em;">
 						    <p class="">
-							    <strong>{{ ponente.nombre }}</strong>
+							    <strong>
+							    <a href="{% url 'ponentes_detalle' conf.ponente.id %}" class="ponentes_detalle" target="_blank">{{ conf.ponente.nombre }}</a>
+							    </strong>
 							    <br>
 							    <span>							    
-							    {{ ponente.resumen }}							    
-							    </span>							    
+							    {{ conf.ponente.resumen }}					
+							    </span>	
+							    <br>						    
+							    <i>{{ conf.nombre }}</i>
 						    </p>
 						</div>
 					</div>					
@@ -174,196 +192,44 @@ section#contacto
 			<h1>Cursos y Talleres</h1>
 			<hr class="divider">
 		</div>
-	</div>
-
-	
+	</div>	
 
 	<div class="row">
-		<div class="col-5 offset-1">
-
-
-		<div class="row">
-			<div class="col-6 text-right">
-				
-				<h5 class="">
-				3D ESTUDIO MAX 
-				
-				<span class="text-muted">
-					(LABORATORIO DE TOPOGRAFÍA)
-				</span></h5>
-				
-				<p class="">
-					Dias y horario: Imparte Arq. Oswaldo N. Altamirano Ruiz, del lunes 13 al 16 de noviembre de 2017, en un horario de 9:00 a 13:00 horas.
-
-					<br>
-					<br>
-
-					<a href="" class="btn btn-lg registro btn-success">
-						Más Información
-					</a>
-				</p>
-			</div>
-			<div class="col-6">
-				<img src='{% static "/taller/1.png" %}' alt="3d-max">
-			</div>
-		</div>
 		
-		<br>
-		<br>
-
-		<div class="row">
-
-			<div class="col-6 text-right">				
-				<h5 class="display-5">
-				AUTOCAD AVANZADO
-				<br>
-				<span class="text-muted">
-					(AULA 805)
-				</span></h5>
-				
-				<p class="">
-					Dias y horario: Imparte el Arq. Miguel Angel Peralta Hernández. Del lunes 13 al jueves 16 de noviembre de 2017. En un horario de las 9:00 a las 13:00 horas.
-
-					<br>
-					<br>
-
-					<a href="" class="btn btn-lg registro btn-success">
-						Más Información
-					</a>
-				</p>
-			</div>
-
-			<div class="col-6">
-				<img src='{% static "/taller/autocad-2019.jpg" %}' alt="3d-max">
-			</div>
-		</div>
-
-		<br>
-		<br>
-
-		<div class="row">
-			<div class="col-6">
-				
-				<h5 class="text-right">
-				AUTOCAD BÁSICO 
-				<br>
-				<span class="text-muted">
-					(LABORATORIO DE CÓMPUTO)
-				</span></h5>
-				
-				<p class=" text-right">
-					Dias y horario: Imparte: C. Christian Bathuel Alvarado Acosta y C. Abdallah Isaias Guevara Camacho. Del día 13 al 16 de noviembre del 2017 de 9-13 horas
-
-					<br>
-					<br>
-
-					<a href="" class="btn btn-lg registro btn-success">
-						Más Información
-					</a>
-				</p>
-			</div>
-			<div class="col-6">
-				<img src='{% static "/taller/AutoCAD.jpg" %}' alt="3d-max">
-			</div>
-		</div>
-
+		{% for taller in talleres %}
 			
+			<div class="col-4">
+				<div class="row">
+					<div class="col">
+						{% if taller.imagen %}
+						<img src="{{ taller.imagen.url }}" alt="Imagen" style="width:100%;">
+						{% else %}
+						<img src="{% static '/taller/1.png' %}" alt="Imagen" style="width:100%;">						
+						{% endif %}
+					</div>
+					<div class="col">						
+						<h5 class="">
+						{{ taller.nombre }}
+						
+						<span class="text-muted">
+							( {{ taller.lugar.nombre }})
+						</span></h5>
 
-			
-		</div>
-
-		<div class="col-5">
-			
-			<div class="row">
-			
-			<div class="col-6">
-				<img src='{% static "/taller/1.png" %}' alt="3d-max">
+						<p class="">
+							{% autoescape off %}
+							{{ taller.descripcion }}
+							{% endautoescape %}
+							<br>
+							<br>
+							<a href="" class="btn btn-lg registro btn-success">
+								Más Información
+							</a>
+						</p>
+					</div>
+				</div>
 			</div>
 
-			<div class="col-6">
-				
-				<h5 class="">
-				3D ESTUDIO MAX 
-				
-				<span class="text-muted">
-					(LABORATORIO DE TOPOGRAFÍA)
-				</span></h5>
-				
-				<p class="">
-					Dias y horario: Imparte Arq. Oswaldo N. Altamirano Ruiz, del lunes 13 al 16 de noviembre de 2017, en un horario de 9:00 a 13:00 horas.
-
-					<br>
-					<br>
-
-					<a href="" class="btn btn-lg registro btn-success">
-						Más Información
-					</a>
-				</p>
-			</div>
-		</div>
-		
-		<br>
-		<br>
-
-		<div class="row">
-			
-			<div class="col-6">
-				<img src='{% static "/taller/autocad-2019.jpg" %}' alt="3d-max">
-			</div>
-
-			<div class="col-6">				
-				<h5 class="display-5">
-				AUTOCAD AVANZADO
-				<br>
-				<span class="text-muted">
-					(AULA 805)
-				</span></h5>
-				
-				<p class="">
-					Dias y horario: Imparte el Arq. Miguel Angel Peralta Hernández. Del lunes 13 al jueves 16 de noviembre de 2017. En un horario de las 9:00 a las 13:00 horas.
-
-					<br>
-					<br>
-
-					<a href="" class="btn btn-lg registro btn-success">
-						Más Información
-					</a>
-				</p>
-			</div>
-		</div>
-
-		<br>
-		<br>
-
-		<div class="row">
-			
-			<div class="col-6">
-				<img src='{% static "/taller/AutoCAD.jpg" %}' alt="3d-max">
-			</div>
-
-			<div class="col-6">
-				
-				<h5 class="">
-				AUTOCAD BÁSICO 
-				<br>
-				<span class="text-muted">
-					(LABORATORIO DE CÓMPUTO)
-				</span></h5>
-				
-				<p class="">
-					Dias y horario: Imparte: C. Christian Bathuel Alvarado Acosta y C. Abdallah Isaias Guevara Camacho. Del día 13 al 16 de noviembre del 2017 de 9-13 horas
-
-					<br>
-					<br>
-
-					<a href="" class="btn btn-lg registro btn-success">
-						Más Información
-					</a>
-				</p>
-			</div>
-		</div>
-
-		</div>
+		{% endfor %}			
 	</div>
 </section>
 
@@ -375,61 +241,63 @@ section#contacto
 		</div>		
 	</div>
 	<div class="row">
-		<div class="col-5 offset-1 text-center">
+		<div class="col-4 text-center">
 			<h4>Alumnos y Exalumnos del <br>Instituto Tecnológico de Acapulco</h4>
 			<h2>
 				$500.00
 			</h2>
+			<p>				
+			<b>REFERENCIA BANCARIA:</b>
+			<br>
+			BANCO: BANORTE
+			<br>
+			EMPRESA: 37333
+			<br>
+			REFERENCIAS: <br> E024INTECSUS3 + No. DE CONTROL
+			</p>
 		</div>
-		<div class="col-5 text-center">
-			<h4>Alumnos de otras Instituciones y <br> Público en General</h4>
+		<div class="col-4 text-center">
+			<h4>Alumnos de Otras Instituciones</h4>
+			<h2>
+				$500.00
+			</h2>
+			<p>				
+			<b>REFERENCIA BANCARIA:</b>
+			<br>
+			BANCO: BANORTE
+			<br>
+			EMPRESA: 37333
+			<br>
+			REFERENCIAS: <br> E024INTECSUS3
+			<br>
+			FOLIO: 13112017
+			</p>
+		</div>
+		<div class="col-4 text-center">
+			<h4>Profesionistas y <br> Público en General</h4>
 			<h2>
 				$800.00
 			</h2>
+			<p>
+			<b>REFERENCIA BANCARIA:</b>
+			<br>
+			BANCO: BANORTE
+			<br>
+			EMPRESA: 37333
+			<br>
+			REFERENCIAS: <br> E024INTECSUS3
+			<br>
+			FOLIO: 13112017
+			</p>
 		</div>
 	</div>
-</section>
-<section id="registro">
-	
-<div class="row">
-	<div class="col-8 offset-2">
-		<h1 class="text-center">Registro</h1>
-		<hr class="divider red">
+	<div class="row">
+		<div class="col text-center">
+			<p>
+				El costo incluye el acceso a todas las conferencias y talleres.
+			</p>
+		</div>
 	</div>
-</div>
-
-<div class="row">		
-	<div class="col-8 offset-2">
-		<form action="" method="post" enctype="multipart/form-data">
-			{% csrf_token %}
-			<!-- <table>    	 -->
-			
-			<div class="row">
-
-			{% for field in form %}			
-
-				<div class="col-6">
-					{{ field.label_tag }} 
-					{{ field }}
-					<br>
-				</div>
-				
-				<!-- {% if forloop.counter|divisibleby:2 %}
-				</div>
-				<div class="row">
-				{% endif %} -->
-
-			{% endfor %}
-			</div>			
-		    <div class="row">		    	
-				<div class="col-4 offset-4">
-		    		<input type="submit" class="btn btn-lg btn-danger" value="REGISTRARSE" />
-		    	</div>
-		    </div>
-		</form>			
-	</div>
-</div>
-
 </section>
 
 <section id="contacto">
@@ -490,6 +358,12 @@ section#contacto
 	$("#id_institucion").prop("required", false).parent(".col-6").hide();
 	$("#id_carrera").prop("required", false).parent(".col-6").hide();
 	$("#id_semestre").prop("required", false).parent(".col-6").hide();	
+
+	$(".ponentes_detalle").on("click", function(e){
+		e.preventDefault();
+		let href = $(this).attr("href")
+		lity(href);
+	})
 
 </script>
 

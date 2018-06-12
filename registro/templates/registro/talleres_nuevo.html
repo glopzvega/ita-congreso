@@ -1,5 +1,12 @@
 {% extends 'baseadmin.html' %}
-
+{% load static %}
+{% block styles %}
+<style>
+	.preview{
+		cursor: pointer;
+	}
+</style>
+{% endblock %}
 {% block content %}
 
 <section id="registro">
@@ -11,48 +18,94 @@
 	</div>
 </div>
 
-<div class="row">		
-	<div class="col-10 offset-1">
-		<form action="" method="post" enctype="multipart/form-data">
-			{% csrf_token %}
-			<!-- <table>    	 -->
+<form action="" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+
+<div class="row">	
+	<div class="col-6 offset-1">		
 			
 			<div class="row">
-
-			{% for field in form %}			
-
-				<div class="col-6">
-
-					{% if field.name == 'fecha_hora' %}
-					{{ field.label_tag }} 					
-					<input type="date" class="form-control" name="fecha_hora" id="id_fecha_hora" value="{{ field.value }}">
-					{% elif field.name == 'hora' %}
-					{{ field.label_tag }} 					
-					<input type="time" class="form-control" name="hora" id="id_hora" value="{{ field.value }}">
-					{% elif field.name == 'descripcion' %}
-					</div></div>
-					<div class="row">
-					<div class="col">
-					{{ field.label_tag }} 					
-					{{ field }}
-					{% else %}
-					{{ field.label_tag }} 					
-					{{ field }}
-					{% endif %}
-					<br>
-				</div>			
-				
+			{% for field in form %}
+				{% if field.name != 'foto' and field.name != 'objetivo' and field.name != 'descripcion' %}
+					<div class="col-6">
+						{% if field.name == 'fecha_hora' %}
+						{{ field.label_tag }} 					
+							<input type="date" class="form-control" name="fecha_hora" id="id_fecha_hora" required="" value="{{ field.value }}">						
+						{% else %}
+							{{ field.label_tag }} 					
+							{{ field }}
+						{% endif %}
+						<br>
+					</div>			
+				{% endif %}
 			{% endfor %}
 			</div>			
-		    <div class="row">		    	
-				<div class="col-4 offset-4">
-		    		<input type="submit" class="btn btn-lg btn-danger" value="GUARDAR" />
-		    	</div>
-		    </div>
-		</form>			
+	</div>
+	<div class="col-4">
+		<div class="row">
+			<div class="col">				
+				{% for field in form %}	
+					{% if field.name == 'foto'  %}
+						{{ field.label_tag }} 					
+						{{ field }}
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col text-center	">
+				Vista Previa de la imágen:
+				<img class="preview" src="{% static 'img/nofoto.png' %}" alt="Imagen Taller" style="width:300px; height: 300px;">
+			</div>
+		</div>
+	</div>	
+</div>
+<div class="row">
+	{% for field in form %}
+		{% if field.name == 'descripcion' or field.name == 'objetivo' %}
+			<div class="col-10 offset-1">
+			{{ field.label_tag }} 					
+			{{ field }}
+			<br>
+			</div>
+		{% endif %}
+	{% endfor %}
+</div>
+<div class="row">		    	
+	<div class="col-4 offset-4">
+		<input type="submit" class="btn btn-lg btn-danger" value="GUARDAR" />
 	</div>
 </div>
+</form>			
 
 </section>
 
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+
+	function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('.preview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+	$("#id_fecha_hora").attr("type", "date");
+	$("#id_hora, #id_hora_fin").attr("type", "time");
+
+	$(".preview").on("click", function(){
+		$("#id_foto").click();
+	})
+
+	$("#id_foto").on("change", function(){
+		readURL(this);
+	});
+</script>
 {% endblock %}
