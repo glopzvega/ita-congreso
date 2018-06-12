@@ -3,12 +3,56 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class Lugar(models.Model):
+	nombre = models.CharField(max_length=255)
+
+	def __str__(self):
+		return self.nombre
+
+class Horario(models.Model):
+	
+	lugar = models.ForeignKey(Lugar, on_delete=models.CASCADE)
+	sala = models.CharField(max_length=255)
+	fecha = models.DateField()
+	dia = models.CharField(max_length=10, choices=[("Dom", "Domingo"),
+		("Lun", "Lunes"),
+		("Mar", "Martes"),
+		("Mie", "Miercoles"),
+		("Jue", "Jueves"),
+		("Vie", "Viernes"),
+		("Sab", "Sabado")], default="Mie")
+	hora = models.TimeField()
+	hora_fin = models.TimeField()
+
+	def __str__(self):
+		return "Sala " + self.sala + " " + str(self.dia) + " " + str(self.fecha) + " " + str(self.hora) + " - " + str(self.hora_fin)
+
 class Ponente(models.Model):
 
 	TIPOS = [
 		("ponente", "Ponente"),
 		("profesor", "Profesor"),
 	]
+
+	CARRERAS = [
+		("arquitectura", "Arquitectura"),
+		("bioquimica", "Ingeniería Bioquímica"),
+		("electromecanica", "Ingeniería Electromecánica"),
+		("sistemas", "Ingeniería en Sistemas Computacionales"),
+		("gestion", "Ingenieria en Gestión Empresarial"),
+		("administracion", "Licenciatura en Administración"),
+		("contabilidad", "Contador Público"),
+	]
+
+	fecha_registro = models.DateField(auto_now_add=True)
+	fecha_modificacion = models.DateField(auto_now=True)
+	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+	
+	ponencia = models.CharField(max_length=255)		
+	horario = models.ForeignKey(Horario, on_delete=models.SET_NULL, null=True)
+	foto_ponencia = models.ImageField(blank=True, null=True)
+	carrera = models.CharField(max_length=255, choices=CARRERAS)	
+
 	nombre = models.CharField(max_length=255)
 	email = models.EmailField(max_length=255)
 	telefono = models.CharField(max_length=20)
@@ -22,22 +66,14 @@ class Ponente(models.Model):
 	def __str__(self):
 		return self.titulo + " " + self.nombre
 
-class Lugar(models.Model):
-	nombre = models.CharField(max_length=255)
+# class Profesor(models.Model):
+# 	nombre = models.CharField(max_length=255)
+# 	email = models.EmailField(max_length=255, null=True, blank=True)
+# 	telefono = models.CharField(max_length=20, null=True, blank=True)
 
-	def __str__(self):
-		return self.nombre
+# 	def __str__(self):
+# 		return self.nombre
 
-class Horario(models.Model):
-	
-	lugar = models.ForeignKey(Lugar, on_delete=models.CASCADE)
-	sala = models.CharField(max_length=255)
-	fecha = models.DateField()
-	hora = models.TimeField()
-	hora_fin = models.TimeField()
-
-	def __str__(self):
-		return self.sala + " " + str(self.fecha) + " " + str(self.hora) + " - " + str(self.hora_fin)
 
 class Conferencia(models.Model):
 
@@ -70,6 +106,43 @@ class Conferencia(models.Model):
 	foto = models.ImageField(blank=True, null=True)
 	tipo = models.CharField(max_length=20, choices=[("conferencia", "Conferencia"), ("taller", "Taller")])	
 	horario = models.ForeignKey(Horario, on_delete=models.SET_NULL, null=True)
+
+	def __str__(self):
+		return self.nombre
+
+class Taller(models.Model):
+
+	CARRERAS = [
+		("arquitectura", "Arquitectura"),
+		("bioquimica", "Ingeniería Bioquímica"),
+		("electromecanica", "Ingeniería Electromecánica"),
+		("sistemas", "Ingeniería en Sistemas Computacionales"),
+		("gestion", "Ingenieria en Gestión Empresarial"),
+		("administracion", "Licenciatura en Administración"),
+		("contabilidad", "Contador Público"),
+	]
+
+	fecha_registro = models.DateField(auto_now_add=True)
+	fecha_modificacion = models.DateField(auto_now=True)
+	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+	
+	nombre = models.CharField(max_length=255)	
+	requisitos = models.CharField(max_length=255, blank=True, null=True)
+	objetivo = models.TextField(null=True, blank=True)
+	descripcion = models.TextField(null=True, blank=True)
+	profesor = models.CharField(max_length=255)
+	# ponente = models.ForeignKey(Profesor, models.CASCADE, null=True)
+	# lugar = models.ForeignKey(Lugar, models.CASCADE, null=True)
+	salon = models.CharField(max_length=255, null=True)
+	fecha = models.DateField()	
+	fecha_fin = models.DateField()
+	duracion = models.IntegerField()
+	hora = models.TimeField()	
+	hora_fin = models.TimeField()
+	carrera = models.CharField(max_length=255, choices=CARRERAS)	
+	foto = models.ImageField(blank=True, null=True)
+	# tipo = models.CharField(max_length=20, choices=[("conferencia", "Conferencia"), ("taller", "Taller")])	
+	# horario = models.ForeignKey(Horario, on_delete=models.SET_NULL, null=True)
 
 	def __str__(self):
 		return self.nombre

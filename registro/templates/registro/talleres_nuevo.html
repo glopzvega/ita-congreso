@@ -9,6 +9,30 @@
 {% endblock %}
 {% block content %}
 
+<row>	
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-danger">
+        	{{ message.error }}
+        </div>
+    {% endfor %}
+{% endif %}
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+</row>
+
 <section id="registro">
 	
 <div class="row">
@@ -29,8 +53,8 @@
 				{% if field.name != 'foto' and field.name != 'objetivo' and field.name != 'descripcion' %}
 					<div class="col-6">
 						{% if field.name == 'fecha_hora' %}
-						{{ field.label_tag }} 					
-							<input type="date" class="form-control" name="fecha_hora" id="id_fecha_hora" required="" value="{{ field.value }}">						
+							{{ field.label_tag }} 					
+							<input type="date" class="form-control" name="fecha_hora" id="id_fecha_hora" required="" value="{{ field.value }}">	
 						{% else %}
 							{{ field.label_tag }} 					
 							{{ field }}
@@ -97,7 +121,7 @@
         }
     }
 
-	$("#id_fecha_hora").attr("type", "date");
+	$("#id_fecha").attr("type", "date");
 	$("#id_hora, #id_hora_fin").attr("type", "time");
 
 	$(".preview").on("click", function(){

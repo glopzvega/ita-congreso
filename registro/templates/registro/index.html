@@ -149,25 +149,25 @@ section#contacto
 
 				{% for conf in conferencias %}
 
-				{% if conf.ponente.activo %}
+				{% if conf.activo %}
 
 				<div class="col-4">
 
 					<div class="carta">
-						{% if conf.ponente.foto %}
-						<a href="{% url 'ponentes_detalle' conf.ponente.id %}" target="_blank" class="ponentes_detalle" style="display:inline-block; width:100%;"><img class="rounded-circle" src="{{ conf.ponente.foto.url }}" alt="Card image cap" style="width:100%;"></a>
+						{% if conf.foto %}
+						<a href="{% url 'ponentes_detalle' conf.id %}" target="_blank" class="ponentes_detalle" style="display:inline-block; width:100%;"><img class="rounded-circle" src="{{ conf.foto.url }}" alt="Card image cap" style="width:100%;"></a>
 						{% endif %}
 						<div class="text-center" style="margin-top: 1em;">
 						    <p class="">
 							    <strong>
-							    <a href="{% url 'ponentes_detalle' conf.ponente.id %}" class="ponentes_detalle" target="_blank">{{ conf.ponente.nombre }}</a>
+							    <a href="{% url 'ponentes_detalle' conf.id %}" class="ponentes_detalle" target="_blank">{{ conf.nombre }}</a>
 							    </strong>
 							    <br>
 							    <span>							    
-							    {{ conf.ponente.resumen }}					
+							    {{ conf.resumen }}					
 							    </span>	
 							    <br>						    
-							    <i>{{ conf.nombre }}</i>
+							    <i>{{ conf.ponencia }}</i>
 						    </p>
 						</div>
 					</div>					
@@ -212,9 +212,11 @@ section#contacto
 						{{ taller.nombre }}
 						
 						<span class="text-muted">
-							( {{ taller.lugar.nombre }})
+							( {{ taller.salon }})
 						</span></h5>
-
+						<div>
+							Instructor: <b>{{ taller.profesor }}</b>
+						</div>
 						<p class="">
 							{% autoescape off %}
 							{{ taller.descripcion }}

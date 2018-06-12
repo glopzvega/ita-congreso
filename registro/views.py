@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from datetime import datetime,timedelta
 from .forms import RegistroModelForm, LugarModelForm, PonenteModelForm, ConferenciaModelForm, TallerModelForm
 
-from .models import Lugar, Ponente, Conferencia, Registro, Horario
+from .models import Lugar, Ponente, Conferencia, Taller, Registro, Horario
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -30,12 +30,12 @@ def index(request):
 	ponentes = Ponente.objects.filter(tipo__exact="ponente")
 	profesores = Ponente.objects.filter(tipo__exact="profesor")
 	conferencias = Conferencia.objects.filter(tipo__exact='conferencia')
-	talleres = Conferencia.objects.filter(tipo__exact='taller')
+	talleres = Taller.objects.filter()
 
 	context = {
-		"conferencias" : conferencias,
+		"conferencias" : ponentes,
 		"talleres" : talleres,
-		"ponentes" : ponentes,
+		# "ponentes" : ponentes,
 		# "form" : form
 	}
 
@@ -426,7 +426,7 @@ def conferencias(request):
 @login_required
 def talleres(request):
 
-	registros = Conferencia.objects.filter(tipo__exact='taller')
+	registros = Taller.objects.all()
 	
 	context = {
 		"data" : registros
@@ -476,11 +476,11 @@ def talleres_nuevo(request):
 			# I have more things I want to do with it."
 			registro = form.save(commit=False)
 			registro.user = request.user
-			registro.tipo = 'taller'
-			fecha_ini = registro.fecha_hora
+			# registro.tipo = 'taller'
+			# fecha_ini = registro.fecha
 			# fecha_ini = datetime.strptime(fecha_ini, "%Y-%m-%d")
 			dias = timedelta(days=registro.duracion)
-			registro.fecha_fin = fecha_ini + dias
+			registro.fecha_fin = registro.fecha + dias
 			registro.save()
 			
 			return redirect('talleres')
@@ -532,7 +532,7 @@ def talleres_editar(request, id):
 	if not request.user.is_staff:
 		return redirect("registros")
 	
-	registro = get_object_or_404(Conferencia, pk=id)
+	registro = get_object_or_404(Taller, pk=id)
 	
 	# Si accedo por medio de POST a esta vista
 	if request.method == 'POST':

@@ -141,23 +141,21 @@
               <li class="nav-item">
                 <a class="nav-link" href="/pagos">Pagos</a>
               </li>
-              <li class="nav-item">
+              <!--<li class="nav-item">
                 <a class="nav-link" href="/ponentes">Ponentes</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/profesores">Profesores</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/profesores">Profesores</a>
+                <a class="nav-link" href="/lugares">Lugares</a>
               </li>
+              -->
               <li class="nav-item">
-                <a class="nav-link" href="/conferencias">Conferencias</a>
+                <a class="nav-link" href="/ponentes">Conferencias</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/talleres">Talleres</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/lugares">Lugares</a>
               </li>
 
               {% elif user.is_staff %}
@@ -252,6 +250,9 @@
       });
 
       $('textarea').froalaEditor();
+
+      //Remover Alerta Pago Froalla Editor
+      $(".fr-wrapper.show-placeholder").find("div>a").parent().remove()
 
     </script>
   

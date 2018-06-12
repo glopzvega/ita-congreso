@@ -32,10 +32,10 @@
 				<tr>
 					<th data-checkbox="true"></th>
 					<th></th>
-					<th>Titulo</th>				
-					<th>Nombre</th>	
-					<th>Email</th>	
-					<th>Telefono</th>	
+					<th>Conferencia</th>				
+					<th>Ponente</th>	
+					<th>Horario</th>	
+					<th>Contacto</th>	
 					<th>Visible</th>
 					<th></th>
 				</tr>
@@ -52,17 +52,17 @@
 						{% endif %}
 					</td>
 					<td>
-						{{ row.titulo }}
+						{{ row.ponencia }}
 					</td>				
 					<td>
 						<a href='{% url "ponentes_editar" row.id %}'>
-						{{ row.nombre }}
+						{{ row.titulo }} {{ row.nombre }}
 						<br>
 						<small>{{ row.resumen }}</small>
 					</a>
 					</td>	
-					<td>{{ row.email }}</td>
-					<td>{{ row.telefono }}</td>
+					<td>{{ row.horario }}</td>
+					<td>{{ row.email }} {{ row.telefono }}</td>
 					<td>{{ row.activo }}</td>
 					<td align="right">
 						<div class="dropdown">

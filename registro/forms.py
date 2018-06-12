@@ -1,13 +1,16 @@
 from django import forms
 from django.forms import ModelForm, NumberInput, TextInput, Textarea
 
-from .models import Registro, Ponente, Conferencia, Lugar, Horario
+from .models import Registro, Ponente, Conferencia, Lugar, Horario, Taller
 
 class PonenteModelForm(ModelForm):
 
 	class Meta:
 		model = Ponente
-		fields = ("titulo", "nombre", "email", "telefono", "resumen", "activo", "intro")
+		labels = {
+			'horario' : 'Lugar y Fecha',					
+		}
+		fields = ("ponencia", "horario", "titulo", "nombre", "email", "telefono", "resumen", "activo", "intro")
 
 class LugarModelForm(ModelForm):
 
@@ -30,7 +33,7 @@ class ConferenciaModelForm(ModelForm):
 			'duracion' : 'Duración (Horas)',
 			'fecha_hora' : 'Fecha',
 			'hora' : 'Hora de Inicio',
-			'hora' : 'Hora de Término',			
+			'hora_fin' : 'Hora de Término',			
 		}
 		fields = ("nombre", "ponente", "lugar", "horario", "fecha_hora", "hora", "hora_fin", "foto", "descripcion")
 
@@ -41,21 +44,21 @@ class ConferenciaModelForm(ModelForm):
 class TallerModelForm(ModelForm):
 
 	class Meta:
-		model = Conferencia
+		model = Taller
 		labels = {
 			'nombre' : 'Nombre del Taller',			
-			'fecha_hora' : 'Fecha de Inicio',
+			'fecha' : 'Fecha de Inicio',
 			'duracion' : 'Duración (Dias)',
 			'hora' : 'Hora de Inicio',
 			'hora_fin' : 'Hora de Termino',
-			'ponente' : 'Instructor',
+			'profesor' : 'Instructor',
 			'requisitos' : 'Requisitos del Participante',
 			'descripcion' : 'Programa'
 		}
-		fields = ("nombre", "ponente", "lugar", "sala", "fecha_hora", "duracion", "hora", "hora_fin",  "requisitos", "foto", "objetivo", "descripcion")
-	def __init__(self, *args, **kwargs):
-		super(TallerModelForm, self).__init__(*args, **kwargs)
-		self.fields['ponente'].queryset = Ponente.objects.filter(tipo__exact="profesor")
+		fields = ("nombre", "profesor", "salon", "fecha", "duracion", "hora", "hora_fin",  "requisitos", "foto", "objetivo", "descripcion")
+	# def __init__(self, *args, **kwargs):
+	# 	super(TallerModelForm, self).__init__(*args, **kwargs)
+	# 	self.fields['ponente'].queryset = Ponente.objects.filter(tipo__exact="profesor")
 
 class RegistroModelForm(ModelForm):
 

@@ -24,21 +24,21 @@ urlpatterns = [
 	path('ponentes/editar/<int:id>', views.ponentes_editar, name="ponentes_editar"),
 	path('ponentes/detalle/<int:id>', views.ponentes_detalle, name="ponentes_detalle"),
 	
-	path('profesores/', views.profesores, name="profesores"),
-	path('profesores/nuevo/', views.profesores_nuevo, name="profesores_nuevo"),
-	path('profesores/editar/<int:id>', views.profesores_editar, name="profesores_editar"),
-	path('profesores/detalle/<int:id>', views.profesores_detalle, name="profesores_detalle"),
+	# path('profesores/', views.profesores, name="profesores"),
+	# path('profesores/nuevo/', views.profesores_nuevo, name="profesores_nuevo"),
+	# path('profesores/editar/<int:id>', views.profesores_editar, name="profesores_editar"),
+	# path('profesores/detalle/<int:id>', views.profesores_detalle, name="profesores_detalle"),
 	
-	path('conferencias/', views.conferencias, name="conferencias"),
-	path('conferencias/nuevo/', views.conferencias_nuevo, name="conferencias_nuevo"),
-	path('conferencias/editar/<int:id>', views.conferencias_editar, name="conferencias_editar"),
+	# path('conferencias/', views.conferencias, name="conferencias"),
+	# path('conferencias/nuevo/', views.conferencias_nuevo, name="conferencias_nuevo"),
+	# path('conferencias/editar/<int:id>', views.conferencias_editar, name="conferencias_editar"),
 	
 	path('talleres/', views.talleres, name="talleres"),
 	path('talleres/nuevo/', views.talleres_nuevo, name="talleres_nuevo"),
 	path('talleres/editar/<int:id>', views.talleres_editar, name="talleres_editar"),
 	
-	path('lugares/', views.lugares, name="lugares"),
-	path('lugares/nuevo/', views.lugares_nuevo, name="lugares_nuevo"),
-	path('lugares/editar/<int:id>', views.lugares_editar, name="lugares_editar"),
+	# path('lugares/', views.lugares, name="lugares"),
+	# path('lugares/nuevo/', views.lugares_nuevo, name="lugares_nuevo"),
+	# path('lugares/editar/<int:id>', views.lugares_editar, name="lugares_editar"),
 	
 ]
