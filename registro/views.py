@@ -106,17 +106,17 @@ def registros_pago(request, id):
 	
 	# return render(request, "registro/pagos.html", context)
 
-@login_required
-def horarios(request, lugar_id):
+# @login_required
+# def horarios(request, lugar_id):
 
-	if not request.user.is_staff:
-		return redirect("registros")
+# 	if not request.user.is_staff:
+# 		return redirect("registros")
 
-	horarios = Horario.objects.filter(lugar__exact=lugar_id).values("id", "lugar", "sala", "fecha", "hora", "hora_fin")
+# 	horarios = Horario.objects.filter(lugar__exact=lugar_id).values("id", "lugar", "sala", "fecha", "hora", "hora_fin")
 		
-	data = list(horarios)
+# 	data = list(horarios)
 	
-	return JsonResponse(data, safe=False)
+# 	return JsonResponse(data, safe=False)
 
 
 @login_required
@@ -256,7 +256,7 @@ def ponentes_nuevo(request):
 	
 	if request.method == 'POST':
 		
-		form = PonenteModelForm(request.POST, request.FILES)
+		form = PonenteModelForm(request.POST, request.FILES, user=request.user)
 		
 		if form.is_valid():
 			# commit=False tells Django that "Don't send this to database yet.
@@ -297,7 +297,7 @@ def ponentes_editar(request, id):
 	# Si accedo por medio de POST a esta vista
 	if request.method == 'POST':
 		# Obtengo la informacion enviada por POST y FILES
-		form = PonenteModelForm(request.POST, request.FILES, instance=registro)
+		form = PonenteModelForm(request.POST, request.FILES, instance=registro, user=request.user)
 		# Valido el formulario
 		if form.is_valid():
 			# Guardo el formulario
@@ -314,7 +314,7 @@ def ponentes_editar(request, id):
 	else:
 		# Genero una instancia de mi ModelForm
 		# Le paso como parametro el producto que voy a enviar
-		form = PonenteModelForm(instance=registro)
+		form = PonenteModelForm(instance=registro, user=request.user)
 
 	context = {
 		"form" : form,
@@ -323,105 +323,105 @@ def ponentes_editar(request, id):
 	
 	return render(request, "registro/ponentes_editar.html", context)
 
-@login_required
-def profesores(request):
+# @login_required
+# def profesores(request):
 
-	registros = Ponente.objects.filter(tipo__exact="profesor")
+# 	registros = Ponente.objects.filter(tipo__exact="profesor")
 	
-	context = {
-		"data" : registros
-	}
+# 	context = {
+# 		"data" : registros
+# 	}
 	
-	return render(request, "registro/profesores.html", context)
+# 	return render(request, "registro/profesores.html", context)
 
 
-@login_required
-def profesores_nuevo(request):
+# @login_required
+# def profesores_nuevo(request):
 
-	if not request.user.is_staff:
-		return redirect("registros")
+# 	if not request.user.is_staff:
+# 		return redirect("registros")
 	
-	if request.method == 'POST':
+# 	if request.method == 'POST':
 		
-		form = PonenteModelForm(request.POST, request.FILES)
+# 		form = PonenteModelForm(request.POST, request.FILES)
 		
-		if form.is_valid():
-			# commit=False tells Django that "Don't send this to database yet.
-			# I have more things I want to do with it."
-			registro = form.save(commit=False)
-			registro.tipo = "profesor"
-			registro.activo = True
-			registro.save()
+# 		if form.is_valid():
+# 			# commit=False tells Django that "Don't send this to database yet.
+# 			# I have more things I want to do with it."
+# 			registro = form.save(commit=False)
+# 			registro.tipo = "profesor"
+# 			registro.activo = True
+# 			registro.save()
 			
-			return redirect('profesores')
+# 			return redirect('profesores')
 			
-	else:
-		form = PonenteModelForm()
+# 	else:
+# 		form = PonenteModelForm()
 
-	context = {
-		"form" : form
-	}
+# 	context = {
+# 		"form" : form
+# 	}
 	
-	return render(request, "registro/profesores_nuevo.html", context)
+# 	return render(request, "registro/profesores_nuevo.html", context)
 
-def profesores_detalle(request, id):
+# def profesores_detalle(request, id):
 	
-	registro = get_object_or_404(Ponente, pk=id)	
+# 	registro = get_object_or_404(Ponente, pk=id)	
 
-	context = {		
-		"data" : registro
-	}
+# 	context = {		
+# 		"data" : registro
+# 	}
 	
-	return render(request, "registro/profesores_detalle.html", context)
+# 	return render(request, "registro/profesores_detalle.html", context)
 
-@login_required
-def profesores_editar(request, id):
+# @login_required
+# def profesores_editar(request, id):
 
-	if not request.user.is_staff:
-		return redirect("registros")
+# 	if not request.user.is_staff:
+# 		return redirect("registros")
 	
-	registro = get_object_or_404(Ponente, pk=id)
+# 	registro = get_object_or_404(Ponente, pk=id)
 	
-	# Si accedo por medio de POST a esta vista
-	if request.method == 'POST':
-		# Obtengo la informacion enviada por POST y FILES
-		form = PonenteModelForm(request.POST, request.FILES, instance=registro)
-		# Valido el formulario
-		if form.is_valid():
-			# Guardo el formulario
-			ponente = form.save(commit=False)
+# 	# Si accedo por medio de POST a esta vista
+# 	if request.method == 'POST':
+# 		# Obtengo la informacion enviada por POST y FILES
+# 		form = PonenteModelForm(request.POST, request.FILES, instance=registro)
+# 		# Valido el formulario
+# 		if form.is_valid():
+# 			# Guardo el formulario
+# 			ponente = form.save(commit=False)
 
-			if request.FILES and request.FILES["foto"]:
-				ponente.foto = request.FILES["foto"]
-			# Guardo en la BD
-			ponente.save()			
-			# Devuelvo el template
-			return redirect('profesores')
+# 			if request.FILES and request.FILES["foto"]:
+# 				ponente.foto = request.FILES["foto"]
+# 			# Guardo en la BD
+# 			ponente.save()			
+# 			# Devuelvo el template
+# 			return redirect('profesores')
 	
-	# Si acceso por GET
-	else:
-		# Genero una instancia de mi ModelForm
-		# Le paso como parametro el producto que voy a enviar
-		form = PonenteModelForm(instance=registro)
+# 	# Si acceso por GET
+# 	else:
+# 		# Genero una instancia de mi ModelForm
+# 		# Le paso como parametro el producto que voy a enviar
+# 		form = PonenteModelForm(instance=registro)
 
-	context = {
-		"form" : form,
-		"data" : registro
-	}
+# 	context = {
+# 		"form" : form,
+# 		"data" : registro
+# 	}
 	
-	return render(request, "registro/profesores_editar.html", context)
+# 	return render(request, "registro/profesores_editar.html", context)
 
 
-@login_required
-def conferencias(request):
+# @login_required
+# def conferencias(request):
 
-	registros = Conferencia.objects.filter(tipo__exact='conferencia')
+# 	registros = Conferencia.objects.filter(tipo__exact='conferencia')
 	
-	context = {
-		"data" : registros
-	}
+# 	context = {
+# 		"data" : registros
+# 	}
 	
-	return render(request, "registro/conferencias.html", context)
+# 	return render(request, "registro/conferencias.html", context)
 
 @login_required
 def talleres(request):
@@ -434,33 +434,33 @@ def talleres(request):
 	
 	return render(request, "registro/talleres.html", context)
 
-@login_required
-def conferencias_nuevo(request):
+# @login_required
+# def conferencias_nuevo(request):
 
-	if not request.user.is_staff:
-		return redirect("registros")
+# 	if not request.user.is_staff:
+# 		return redirect("registros")
 	
-	if request.method == 'POST':
+# 	if request.method == 'POST':
 		
-		form = ConferenciaModelForm(request.POST, request.FILES)
+# 		form = ConferenciaModelForm(request.POST, request.FILES)
 		
-		if form.is_valid():
-			# commit=False tells Django that "Don't send this to database yet.
-			# I have more things I want to do with it."
-			registro = form.save(commit=False)
-			registro.tipo = 'conferencia'
-			registro.save()
+# 		if form.is_valid():
+# 			# commit=False tells Django that "Don't send this to database yet.
+# 			# I have more things I want to do with it."
+# 			registro = form.save(commit=False)
+# 			registro.tipo = 'conferencia'
+# 			registro.save()
 			
-			return redirect('conferencias')
+# 			return redirect('conferencias')
 			
-	else:
-		form = ConferenciaModelForm()
+# 	else:
+# 		form = ConferenciaModelForm()
 
-	context = {
-		"form" : form
-	}
+# 	context = {
+# 		"form" : form
+# 	}
 	
-	return render(request, "registro/conferencias_nuevo.html", context)
+# 	return render(request, "registro/conferencias_nuevo.html", context)
 
 @login_required
 def talleres_nuevo(request):
@@ -494,37 +494,37 @@ def talleres_nuevo(request):
 	
 	return render(request, "registro/talleres_nuevo.html", context)
 
-@login_required
-def conferencias_editar(request, id):
+# @login_required
+# def conferencias_editar(request, id):
 
-	if not request.user.is_staff:
-		return redirect("registros")
+# 	if not request.user.is_staff:
+# 		return redirect("registros")
 	
-	registro = get_object_or_404(Conferencia, pk=id)
+# 	registro = get_object_or_404(Conferencia, pk=id)
 	
-	# Si accedo por medio de POST a esta vista
-	if request.method == 'POST':
-		# Obtengo la informacion enviada por POST y FILES
-		form = ConferenciaModelForm(request.POST, instance=registro)
-		# Valido el formulario
-		if form.is_valid():
-			# Guardo el formulario
-			form.save()
-			# Devuelvo el template
-			return redirect('conferencias')
+# 	# Si accedo por medio de POST a esta vista
+# 	if request.method == 'POST':
+# 		# Obtengo la informacion enviada por POST y FILES
+# 		form = ConferenciaModelForm(request.POST, instance=registro)
+# 		# Valido el formulario
+# 		if form.is_valid():
+# 			# Guardo el formulario
+# 			form.save()
+# 			# Devuelvo el template
+# 			return redirect('conferencias')
 	
-	# Si acceso por GET
-	else:
-		# Genero una instancia de mi ModelForm
-		# Le paso como parametro el producto que voy a enviar
-		form = ConferenciaModelForm(instance=registro)
+# 	# Si acceso por GET
+# 	else:
+# 		# Genero una instancia de mi ModelForm
+# 		# Le paso como parametro el producto que voy a enviar
+# 		form = ConferenciaModelForm(instance=registro)
 
-	context = {
-		"form" : form,
-		"data" : registro
-	}
+# 	context = {
+# 		"form" : form,
+# 		"data" : registro
+# 	}
 	
-	return render(request, "registro/conferencias_editar.html", context)
+# 	return render(request, "registro/conferencias_editar.html", context)
 
 @login_required
 def talleres_editar(request, id):
@@ -558,69 +558,69 @@ def talleres_editar(request, id):
 	
 	return render(request, "registro/talleres_editar.html", context)
 
-@login_required
-def lugares(request):
+# @login_required
+# def lugares(request):
 	
-	lista = Lugar.objects.all()
+# 	lista = Lugar.objects.all()
 	
-	context = {
-		"data" : lista
-	}
+# 	context = {
+# 		"data" : lista
+# 	}
 	
-	return render(request, "registro/lugares.html", context)
+# 	return render(request, "registro/lugares.html", context)
 
-@login_required
-def lugares_nuevo(request):
+# @login_required
+# def lugares_nuevo(request):
 
-	if not request.user.is_staff:
-		return redirect("registros")
+# 	if not request.user.is_staff:
+# 		return redirect("registros")
 	
-	if request.method == 'POST':
+# 	if request.method == 'POST':
 		
-		form = LugarModelForm(request.POST, request.FILES)
+# 		form = LugarModelForm(request.POST, request.FILES)
 		
-		if form.is_valid():
-			# commit=False tells Django that "Don't send this to database yet.
-			# I have more things I want to do with it."
-			registro = form.save(commit=False)
-			registro.save()
+# 		if form.is_valid():
+# 			# commit=False tells Django that "Don't send this to database yet.
+# 			# I have more things I want to do with it."
+# 			registro = form.save(commit=False)
+# 			registro.save()
 			
-			return redirect('lugares')
+# 			return redirect('lugares')
 			
-	else:
-		form = LugarModelForm()
+# 	else:
+# 		form = LugarModelForm()
 
-	context = {
-		"form" : form
-	}
+# 	context = {
+# 		"form" : form
+# 	}
 	
-	return render(request, "registro/lugares_nuevo.html", context)
+# 	return render(request, "registro/lugares_nuevo.html", context)
 
-@login_required
-def lugares_editar(request, id):
+# @login_required
+# def lugares_editar(request, id):
 
-	if not request.user.is_staff or not request.user.is_superuser:
-		return redirect("registros")
+# 	if not request.user.is_staff or not request.user.is_superuser:
+# 		return redirect("registros")
 
-	registro = get_object_or_404(Lugar, pk=id)
+# 	registro = get_object_or_404(Lugar, pk=id)
 	
-	# Si accedo por medio de POST a esta vista
-	if request.method == 'POST':
-		# Obtengo la informacion enviada por POST y FILES
-		form = LugarModelForm(request.POST, instance=registro)
-		# Valido el formulario
-		if form.is_valid():
-			# Guardo el formulario
-			form.save()
-			# Devuelvo el template
-			return redirect('lugares')
+# 	# Si accedo por medio de POST a esta vista
+# 	if request.method == 'POST':
+# 		# Obtengo la informacion enviada por POST y FILES
+# 		form = LugarModelForm(request.POST, instance=registro)
+# 		# Valido el formulario
+# 		if form.is_valid():
+# 			# Guardo el formulario
+# 			form.save()
+# 			# Devuelvo el template
+# 			return redirect('lugares')
 	
-	# Si acceso por GET
-	else:
-		# Genero una instancia de mi ModelForm
-		# Le paso como parametro el producto que voy a enviar
-		form = LugarModelForm(instance=registro)
+# 	# Si acceso por GET
+# 	else:
+# 		# Genero una instancia de mi ModelForm
+# 		# Le paso como parametro el producto que voy a enviar
+# 		form = LugarModelForm(instance=registro)
 
-	# Devuelvo el template
-	return render(request, 'registro/lugares_editar.html', {'form': form, "registro" : registro})
+# 	# Devuelvo el template
+# 	return render(request, 'registro/lugares_editar.html', {'form': form, "registro" : registro})
 
