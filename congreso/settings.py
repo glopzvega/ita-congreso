@@ -146,9 +146,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/registros'
 
+EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
+EMAIL_PORT = 465
 EMAIL_HOST_USER = 'mcgalv@gmail.com'
 EMAIL_HOST_PASSWORD = 'G28Y18G08L19'
-EMAIL_USE_SSL = True
-EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = True
+# EMAIL_USE_TLS = True
