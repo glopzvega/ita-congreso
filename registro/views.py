@@ -1,10 +1,13 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from decimal import Decimal
 from datetime import datetime,timedelta
 from .forms import RegistroModelForm, LugarModelForm, PonenteModelForm, ConferenciaModelForm, TallerModelForm
 
 from .models import Lugar, Ponente, Conferencia, Taller, Registro, Horario
 from django.contrib.auth.decorators import login_required
+
+from django.core.mail import send_mail
 
 # Create your views here.
 # @user_passes_test(lambda u: u.is_superuser)
@@ -69,10 +72,27 @@ def registros_pago(request, id):
 		return redirect("registros")
 
 	registro = get_object_or_404(Registro, pk=id)
-	registro.fecha_pago = datetime.now().strftime("%Y-%m-%d")
-	registro.state = "done"
-	registro.save()
+
+	monto = request.GET.get("monto", 0)
+	monto = Decimal(monto)
+	if monto > 0:
+		registro.fecha_pago = datetime.now().strftime("%Y-%m-%d")
+		if registro.saldo <= monto:
+			registro.state = "done"
+			registro.saldo = 0
+		else:
+			registro.state = "open"
+			registro.saldo = registro.saldo - monto
+		registro.save()
 	# registros = Registro.objects.all().values("id", "nombre", "apellidop", "apellidom", "fecha_pago", "email", "tipo", "identificacion", "semestre", "carrera", "state")
+
+	send_mail(
+	    'PAGO REGISTRADO',
+	    'Se ha registrado tu pago para el congreso CIITYS 2018 por el monto de ' + str(monto),
+	    'g.albertolopezvega@gmail.com',
+	    [registro.email],
+	    fail_silently=False,
+	)
 
 	res = { 
 		"success" : True, 
@@ -89,13 +109,14 @@ def registros_pago(request, id):
 				"rfc" : registro.rfc,
 				"semestre" : registro.semestre,
 				"carrera" : registro.carrera,
+				"saldo" : registro.saldo,
 				"state" : registro.state,
 			}
 		]
 	}
 	
-	if registro.state != "done":
-		res["success"] = False
+	# if registro.state != "done":
+	# 	res["success"] = False
 	
 	return JsonResponse(res, safe=False)
 
@@ -189,8 +210,24 @@ def registros_nuevo(request):
 				return render(request, "registro/registros_nuevo.html", context)
 
 			registro.user = request.user
+			
+			registro.saldo = 500
+			if registro.tipo_registro == "profesional":
+				registro.saldo = 3000
+
 			registro.state = "draft"
 			registro.save()
+
+			monto = registro.saldo
+
+			send_mail(
+			    'PRE REGISTRO REALIZADO',
+			    'Se ha realizado su pre registro para el congreso CIITYS 2018, para continuar con su registro e inscribirse en uno de los talleres deberá realizar su pago por el monto de ' + str(monto),
+			    'g.albertolopezvega@gmail.com',
+			    [registro.email],
+			    fail_silently=False,
+			    html_message='Se ha realizado su pre registro para el congreso CIITYS 2018, para continuar con su registro e inscribirse en uno de los talleres deberá realizar su pago. <br> <b>REFERENCIA BANCARIA</b> <br> BANCO: <b>BANORTE</b><br>EMPRESA:<b>37333</b><br>REFERENCIAS: <b>E024CIITYS186</b><br>MONTO: <b>$' + str(monto) + '</b>'
+			)
 			
 			return redirect('confirmacion')
 			

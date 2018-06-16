@@ -6,8 +6,9 @@
 window.pagoEvents = {
 	"click .pago" : function(e, value, row, index){
 		e.preventDefault()
-		console.log(row.id)
-		actualizar_pago(row, index);
+		console.log(row)
+		$(".modal-pago").data("row", row).data("index", index).modal("show")
+		// actualizar_pago(row, index);
 	}
 }
 
@@ -15,6 +16,11 @@ pagoFormatter = function(value, row){
 	if($.trim(value) == "None")
 		value = "Pendiente"	
 	return value
+}
+
+format_number = function(value, row)
+{
+    return Number(value).toLocaleString('es-MX', { style: 'currency', currency: 'MXN'})
 }
 
 semestreFormatter = function(value, row){	
@@ -47,7 +53,11 @@ stateFormatter = function(value, row)
 {
 	if ($.trim(value) == "draft")
 	{
-		return "Pago Pendiente";
+		return "Nuevo";
+	}
+	else if ($.trim(value) == "open")
+	{
+		return "Confirmado";
 	}
 	else
 	{
@@ -63,6 +73,36 @@ actionFomatter = function(value, row)
 	}
 }
 </script>
+
+<div class="modal modal-pago" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Registrar Pago</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post">			
+        	<div class="row">
+	        	<div class="col">
+	        		
+	        		<label for="">Cantidad a pagar:</label>
+	        		<input type="number" class="form-control" name="monto" step="0.1" min="0" id="id_monto">
+	        	</div>
+        	</div>
+        	<hr>
+		    <div class="m-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">SALIR</button>
+		        <button type="submit" class="btn btn-danger">PAGAR</button>
+		    </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <section >
 
 <div class="row">
@@ -98,9 +138,9 @@ actionFomatter = function(value, row)
 					<th data-field="fecha_pago" data-formatter="pagoFormatter" data-sortable="true">Fecha Pago</th>
 					<th data-field="email" data-sortable="true">Email</th>
 					<th data-field="tipo_registro" data-sortable="true">Tipo</th>
-					<th data-field="identificacion" data-sortable="true">Identificación</th>	
-					<th data-field="semestre" data-formatter="semestreFormatter" data-sortable="true">Semestre</th>
+					<th data-field="identificacion" data-sortable="true">Identificación</th>					
 					<th data-field="carrera" data-formatter="carreraFormatter" data-sortable="true">Carrera</th>
+					<th data-field="saldo" data-formatter="format_number" data-sortable="true">Saldo</th>
 					<th data-field="state" data-sortable="true" data-formatter="stateFormatter">Estatus</th>	
 					<th data-field="actions" data-formatter="actionFomatter" data-events="pagoEvents"></th>
 				</tr>
@@ -150,11 +190,12 @@ actionFomatter = function(value, row)
 
 						{% endif %}
 					</td>
-					<td>
-						{{row.semestre}}
-					</td>	
+						
 					<td>
 						{{ row.carrera }}
+					</td>
+					<td>
+						{{ row.saldo }}
 					</td>
 					<td>										
 						{{ row.state }}
@@ -188,6 +229,43 @@ function actualizar_pago(row, index)
 		}
 	})
 }
+
+$(".modal-pago").on("shown.bs.modal", function(){
+	console.log($(this).data())
+	let row = $(this).data("row");
+	let id = $.trim(row.id);
+	let saldo = $.trim(row.saldo);
+	let href = "/registros/pago/" + id;
+	$(this).find("form").attr("action", href);
+	$(this).find("#id_monto").val(saldo);
+})
+
+$(".modal-pago form").on("submit", function(e){
+	e.preventDefault();
+	let data = $(this).serialize();
+	let action = $(this).attr("action");
+	let index = $(".modal-pago").data("index")
+
+	console.log(data)
+	
+	$.getJSON(action, data, function(res){
+		console.log(res)
+		if(res.success)
+		{
+			$(".registros-pago").bootstrapTable("updateRow", {"index" : index, "row" : res.data[0]});
+			$(".modal-pago").modal("hide");
+		}
+	});	
+
+	// console.log($(this).data())
+	// let row = $(this).data("row");
+	// let id = $.trim(row.id);
+	// let saldo = $.trim(row.saldo);
+	// let href = "/registros/pago/" + id;
+	// $(this).find("form").attr("action", href);
+	// $(this).find("#id_monto").val(saldo);
+})
+
 </script>
 
 {% endblock %}
