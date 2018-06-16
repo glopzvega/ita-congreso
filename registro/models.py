@@ -223,6 +223,11 @@ class Registro(models.Model):
 		("done", "Pagado")
 	]
 
+	GENERO = [
+		("hombre", "Hombre"),
+		("mujer", "Mujer"),		
+	]
+
 	fecha_registro = models.DateField(auto_now_add=True)
 	fecha_modificacion = models.DateField(auto_now=True)
 	fecha_pago = models.DateField(null=True, blank=True)
@@ -242,6 +247,6 @@ class Registro(models.Model):
 	tipo_registro = models.CharField(max_length=255, choices=TIPO_REGISTRO)
 	saldo = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 	state = models.CharField(max_length=255, choices=STATES)
-
+	genero = models.CharField(max_length=10, choices=GENERO)
 	def __str__(self):
 		return self.nombre
