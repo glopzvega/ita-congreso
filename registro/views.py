@@ -89,7 +89,7 @@ def registros_pago(request, id):
 	send_mail(
 	    'PAGO REGISTRADO',
 	    'Se ha registrado tu pago para el congreso CIITYS 2018 por el monto de ' + str(monto),
-	    'g.albertolopezvega@gmail.com',
+	    'glopzvega@iozoft.com',
 	    [registro.email],
 	    fail_silently=False,
 	)
