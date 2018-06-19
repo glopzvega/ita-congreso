@@ -128,22 +128,20 @@ class Taller(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 	
 	nombre = models.CharField(max_length=255)	
-	requisitos = models.CharField(max_length=255, blank=True, null=True)
-	objetivo = models.TextField(null=True, blank=True)
-	descripcion = models.TextField(null=True, blank=True)
 	profesor = models.CharField(max_length=255)
-	# ponente = models.ForeignKey(Profesor, models.CASCADE, null=True)
-	# lugar = models.ForeignKey(Lugar, models.CASCADE, null=True)
-	salon = models.CharField(max_length=255, null=True)
+	salon = models.CharField(max_length=255)
 	fecha = models.DateField()	
 	fecha_fin = models.DateField()
 	duracion = models.IntegerField()
 	hora = models.TimeField()	
 	hora_fin = models.TimeField()
+	objetivo = models.CharField(max_length=255)
+	
+	requisitos = models.CharField(max_length=255, blank=True, null=True)
+	descripcion = models.TextField(null=True, blank=True)
+	
 	carrera = models.CharField(max_length=255, choices=CARRERAS)	
-	foto = models.ImageField(blank=True, null=True)
-	# tipo = models.CharField(max_length=20, choices=[("conferencia", "Conferencia"), ("taller", "Taller")])	
-	# horario = models.ForeignKey(Horario, on_delete=models.SET_NULL, null=True)
+	foto = models.ImageField(blank=True, null=True)	
 
 	def __str__(self):
 		return self.nombre
