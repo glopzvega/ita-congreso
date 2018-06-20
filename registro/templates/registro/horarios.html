@@ -1,0 +1,89 @@
+{% extends 'baseadmin.html' %}
+
+{% block content %}
+<br>
+<div class="row">
+	<div class="col-2">
+		Sala:
+		<select name="sala" id="sala">
+			<option value="">Todas</option>
+			<option value="A">Sala A</option>
+			<option value="B">Sala B</option>
+			<option value="C">Sala C</option>
+		</select>
+	</div>
+	<div class="col-2">
+		Fecha:
+		<select name="dia" id="dia">
+			<option value="">Todas</option>
+			<option value="Mie">Miercoles</option>
+			<option value="Jue">Jueves</option>
+			<option value="Vie">Viernes</option>
+		</select>
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col">
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th data-sortable="true">Conferencia</th>
+					<th data-sortable="true">Sala</th>
+					<th data-sortable="true">Fecha</th>
+					<th data-sortable="true">Horario</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for row in data %}
+				<tr>
+					<td>
+						{{row.name }} 
+						<br><small class="text-muted">{{ row.ponente }}</small> 	
+					</td>
+					<td>{{ row.sala }}</td>
+					<td>{{ row.dia }} {{ row.fecha }}</td>
+					<td>{{ row.hora }} - {{ row.hora_fin}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+	let sala = "{{ sala }}";
+	let dia = "{{ dia }}";
+
+	$(".table").bootstrapTable();
+	
+	$("#sala").val(sala);
+	$("#dia").val(dia);
+
+	$("#sala, #dia").on("change", function(){
+		
+		let sala = $("#sala").val()
+		let dia = $("#dia").val();
+		let href = "?";
+		
+		if(sala != "")
+		{
+			href += "sala=" + sala;
+			if (dia != "")
+				href += "&dia=" + dia;
+		}
+		else
+		{
+			if (dia != "")
+				href += "&dia=" + dia;
+		}
+
+		location.href = href;  
+	});	
+
+</script>
+{% endblock %}

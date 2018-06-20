@@ -66,6 +66,50 @@ def pagos(request):
 	return render(request, "registro/pagos.html", context)
 
 @login_required
+def horarios(request):
+
+	if not request.user.is_staff or not request.user.is_superuser:
+		return redirect("registros")
+
+	horarios = Horario.objects.all().order_by("fecha", "hora", "sala")
+	sala = ""
+	if request.GET.get("sala", False):
+		sala = request.GET.get("sala", False)
+		horarios = horarios.filter(sala__exact="Salón " + sala)
+
+	dia = ""
+	if request.GET.get("dia", False):
+		dia = request.GET.get("dia", False)
+		horarios = horarios.filter(dia__exact=dia)
+
+	data = []
+	conferencias = Ponente.objects.all()
+	for row in horarios:
+		conf = conferencias.filter(horario__exact=row)
+		item = {
+			"name" : row.user,
+			"ponente" : "",
+			"sala" : row.sala,
+			"dia" : row.dia,
+			"fecha" : row.fecha,
+			"hora" : row.hora,
+			"hora_fin" : row.hora_fin,
+		}
+		if conf:
+			item["name"] = conf[0].ponencia
+			item["ponente"] = conf[0].nombre
+
+		data.append(item)
+	
+	context = {
+		"data" : data,
+		"sala" : sala,
+		"dia" : dia
+	}
+	
+	return render(request, "registro/horarios.html", context)
+
+@login_required
 def registros_pago(request, id):
 
 	if not request.user.is_superuser:
