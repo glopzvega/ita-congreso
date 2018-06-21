@@ -73,17 +73,25 @@ class RegistroModelForm(ModelForm):
 
 	class Meta:
 		model = Registro
-		fields = ("tipo_registro", "nombre", "apellidop", "apellidom", "nocontrol", "rfc", "institucion", "carrera", "semestre", "email", "telefono", "municipio", "estado")
+		fields = ("tipo_registro", "nombre", "apellidop", "apellidom", "genero", "nocontrol", "rfc", "institucion", "carrera", "semestre", "email", "telefono", "municipio", "estado")
 		# fields = "__all__" #("precio",)
 		# exlude = ("imagen",)
 		labels = {
-			'nombre' : 'Nombre(s)',
-			'apellidop' : 'Apellido Paterno',
-			'apellidom' : 'Apellido Materno',
-			'nocontrol' : 'Matrícula o No. de Control',
-			'rfc' : 'RFC',
+			'nombre' : 'Nombre(s)*',
+			'apellidop' : 'Apellido Paterno*',
+			'apellidom' : 'Apellido Materno*',
+			'nocontrol' : 'Matrícula o No. de Control*',
+			'rfc' : 'RFC*',
 			'telefono' : 'Teléfono (con Clave Lada)',
 			'institucion' : 'Empresa / Institución',
+			'tipo_registro' : 'Tipo de Registro*',
+			'genero' : 'Genero*',
+			'institucion' : 'Institución*',
+			'carrera' : 'Carrera*',
+			'semestre' : 'Semestre*',
+			'email' : 'Email*',
+			'municipio' : 'Municipio*',
+			'estado' : 'Estado*'
 
 		}
 		widgets = {
