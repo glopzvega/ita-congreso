@@ -29,7 +29,7 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th data-sortable="true">Conferencia</th>
+					<th class="text-center" data-sortable="true">Conferencia</th>
 					<th data-sortable="true">Sala</th>
 					<th data-sortable="true">Fecha</th>
 					<th data-sortable="true">Horario</th>
@@ -38,7 +38,7 @@
 			<tbody>
 				{% for row in data %}
 				<tr>
-					<td>
+					<td class="text-center">
 						{{row.name }} 
 						<br><small class="text-muted">{{ row.ponente }}</small> 	
 					</td>

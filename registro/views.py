@@ -2,6 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from decimal import Decimal
 from datetime import datetime,timedelta
+import pytz
 from .forms import RegistroModelForm, LugarModelForm, PonenteModelForm, ConferenciaModelForm, TallerModelForm
 
 from .models import Lugar, Ponente, Conferencia, Taller, Registro, Horario
@@ -52,6 +53,410 @@ def confirmacion(request):
 	return render(request, "registro/confirmacion.html", context)
 
 @login_required
+def resumen(request):
+	registros = Registro.objects.all()
+	
+	c_sistemas = 0
+	c_sistemas_hombre = 0
+	c_sistemas_mujer = 0
+
+	c_bioquimica = 0
+	c_bioquimica_hombre = 0
+	c_bioquimica_mujer = 0
+	
+	c_electromecanica = 0
+	c_electromecanica_hombre = 0
+	c_electromecanica_mujer = 0
+	
+	c_arquitectura = 0
+	c_arquitectura_hombre = 0
+	c_arquitectura_mujer = 0
+	
+	c_administracion = 0
+	c_administracion_hombre = 0
+	c_administracion_mujer = 0
+	
+	c_contabilidad = 0
+	c_contabilidad_hombre = 0
+	c_contabilidad_mujer = 0
+	
+	c_gestion = 0
+	c_gestion_hombre = 0
+	c_gestion_mujer = 0
+
+	c_otra = 0
+	c_otra_hombre = 0
+	c_otra_mujer = 0
+	
+	c_profesionista = 0
+	c_profesionista_hombre = 0
+	c_profesionista_mujer = 0
+
+	c_total = 0
+	c_total_hombre = 0
+	c_total_mujer = 0
+
+	o_sistemas = 0
+	o_sistemas_hombre = 0
+	o_sistemas_mujer = 0
+	
+	o_bioquimica = 0
+	o_bioquimica_hombre = 0
+	o_bioquimica_mujer = 0
+	
+	o_electromecanica = 0
+	o_electromecanica_hombre = 0
+	o_electromecanica_mujer = 0
+	
+	o_arquitectura = 0
+	o_arquitectura_hombre = 0
+	o_arquitectura_mujer = 0
+	
+	o_administracion = 0
+	o_administracion_hombre = 0
+	o_administracion_mujer = 0
+	
+	o_contabilidad = 0
+	o_contabilidad_hombre = 0
+	o_contabilidad_mujer = 0
+	
+	o_gestion = 0
+	o_gestion_hombre = 0
+	o_gestion_mujer = 0
+
+	o_otra = 0
+	o_otra_hombre = 0
+	o_otra_mujer = 0
+	
+	o_profesionista = 0
+	o_profesionista_hombre = 0
+	o_profesionista_mujer = 0
+	
+	o_total = 0
+	o_total_hombre = 0
+	o_total_mujer = 0
+
+	p_sistemas = 0
+	p_sistemas_hombre = 0
+	p_sistemas_mujer = 0
+	
+	p_bioquimica = 0
+	p_bioquimica_hombre = 0
+	p_bioquimica_mujer = 0
+	
+	p_electromecanica = 0
+	p_electromecanica_hombre = 0
+	p_electromecanica_mujer = 0
+	
+	p_arquitectura = 0
+	p_arquitectura_hombre = 0
+	p_arquitectura_mujer = 0
+	
+	p_administracion = 0
+	p_administracion_hombre = 0
+	p_administracion_mujer = 0
+	
+	p_contabilidad = 0
+	p_contabilidad_hombre = 0
+	p_contabilidad_mujer = 0
+	
+	p_gestion = 0
+	p_gestion_hombre = 0
+	p_gestion_mujer = 0
+
+	p_otra = 0
+	p_otra_hombre = 0
+	p_otra_mujer = 0
+	
+	p_profesionista = 0
+	p_profesionista_hombre = 0
+	p_profesionista_mujer = 0
+	
+	p_total = 0
+	p_total_hombre = 0
+	p_total_mujer = 0
+
+	i_subtotal_sistemas = 0
+	i_subtotal_bioquimica = 0
+	i_subtotal_electromecanica = 0
+	i_subtotal_arquitectura = 0
+	i_subtotal_administracion = 0
+	i_subtotal_contabilidad = 0
+	i_subtotal_gestion = 0
+	i_subtotal_otra = 0
+	i_subtotal_profesionista = 0
+	i_total = 0
+
+	for el in registros:
+
+		if el.genero == "hombre":
+			if el.carrera == "sistemas": 
+				c_sistemas += 1
+				c_sistemas_hombre += 1
+			elif el.carrera == "bioquimica": 
+				c_bioquimica += 1
+				c_bioquimica_hombre += 1
+			elif el.carrera == "electromecanica": 
+				c_electromecanica += 1
+				c_electromecanica_hombre += 1
+			elif el.carrera == "arquitectura": 
+				c_arquitectura += 1
+				c_arquitectura_hombre += 1
+			elif el.carrera == "administracion": 
+				c_administracion += 1
+				c_administracion_hombre += 1
+			elif el.carrera == "contabilidad": 
+				c_contabilidad += 1
+				c_contabilidad_hombre += 1
+			elif el.carrera == "gestion": 
+				c_gestion += 1
+				c_gestion_hombre += 1
+			elif el.carrera == "otra": 
+				c_otra += 1
+				c_otra_hombre += 1
+			elif el.carrera == "profesionista": 
+				c_profesionista += 1
+				c_profesionista_hombre += 1
+
+			c_total_hombre += 1
+
+		else:
+			if el.carrera == "sistemas": 
+				c_sistemas += 1
+				c_sistemas_mujer += 1
+			elif el.carrera == "bioquimica": 
+				c_bioquimica += 1
+				c_bioquimica_mujer += 1
+			elif el.carrera == "electromecanica": 
+				c_electromecanica += 1
+				c_electromecanica_mujer += 1
+			elif el.carrera == "arquitectura": 
+				c_arquitectura += 1
+				c_arquitectura_mujer += 1
+			elif el.carrera == "administracion": 
+				c_administracion += 1
+				c_administracion_mujer += 1
+			elif el.carrera == "contabilidad": 
+				c_contabilidad += 1
+				c_contabilidad_mujer += 1
+			elif el.carrera == "gestion": 
+				c_gestion += 1
+				c_gestion_mujer += 1
+			elif el.carrera == "otra": 
+				c_otra += 1
+				c_otra_mujer += 1
+			elif el.carrera == "profesionista": 
+				c_profesionista += 1
+				c_profesionista_mujer += 1
+
+			c_total_mujer += 1
+
+		c_total += 1
+
+	registros_open = registros.filter(state="open")
+
+	for el in registros_open:
+		if el.genero == "hombre":
+			if el.carrera == "sistemas": 
+				o_sistemas += 1
+				o_sistemas_hombre += 1
+				i_subtotal_sistemas += el.pagado
+			elif el.carrera == "bioquimica": 
+				o_bioquimica += 1
+				o_bioquimica_hombre += 1
+				i_subtotal_bioquimica += el.pagado			
+			elif el.carrera == "electromecanica": 
+				o_electromecanica += 1
+				o_electromecanica_hombre += 1
+				i_subtotal_electromecanica += el.pagado			
+			elif el.carrera == "arquitectura": 
+				o_arquitectura += 1
+				o_arquitectura_hombre += 1
+				i_subtotal_arquitectura += el.pagado	
+			elif el.carrera == "administracion": 
+				o_administracion += 1
+				o_administracion_hombre += 1
+				i_subtotal_administracion += el.pagado		
+			elif el.carrera == "contabilidad": 
+				o_contabilidad += 1
+				o_contabilidad_hombre += 1
+				i_subtotal_contabilidad += el.pagado	
+			elif el.carrera == "gestion": 
+				o_gestion += 1
+				o_gestion_hombre += 1
+				i_subtotal_gestion += el.pagado
+			elif el.carrera == "otra": 
+				o_otra += 1
+				o_otra_hombre += 1
+				i_subtotal_otra += el.pagado	
+			elif el.carrera == "profesionista": 
+				o_profesionista += 1
+				o_profesionista_hombre += 1
+				i_subtotal_profesionista += el.pagado			
+
+			o_total_hombre += 1
+
+		else:
+			if el.carrera == "sistemas": 
+				o_sistemas += 1
+				o_sistemas_mujer += 1
+				i_subtotal_sistemas += el.pagado
+			elif el.carrera == "bioquimica": 
+				o_bioquimica += 1
+				o_bioquimica_mujer += 1
+				i_subtotal_bioquimica += el.pagado
+			elif el.carrera == "electromecanica": 
+				o_electromecanica += 1
+				o_electromecanica_mujer += 1
+				i_subtotal_electromecanica += el.pagado
+			elif el.carrera == "arquitectura": 
+				o_arquitectura += 1
+				o_arquitectura_mujer += 1
+				i_subtotal_arquitectura += el.pagado
+			elif el.carrera == "administracion": 
+				o_administracion += 1
+				o_administracion_mujer += 1
+				i_subtotal_administracion += el.pagado
+			elif el.carrera == "contabilidad": 
+				o_contabilidad += 1
+				o_contabilidad_mujer += 1
+				i_subtotal_contabilidad += el.pagado
+			elif el.carrera == "gestion": 
+				o_gestion += 1
+				o_gestion_mujer += 1
+				i_subtotal_gestion += el.pagado
+			elif el.carrera == "otra": 
+				o_otra += 1
+				o_otra_mujer += 1
+				i_subtotal_otra += el.pagado
+			elif el.carrera == "profesionista": 
+				o_profesionista += 1
+				o_profesionista_mujer += 1
+				i_subtotal_profesionista += el.pagado
+
+			o_total_mujer += 1
+
+		i_total += el.pagado
+		o_total += 1
+
+	registros_done = registros.filter(state="done")
+
+	for el in registros_done:
+		if el.genero == "hombre":
+			if el.carrera == "sistemas": 
+				p_sistemas += 1
+				p_sistemas_hombre += 1
+				i_subtotal_sistemas += el.pagado
+			elif el.carrera == "bioquimica": 
+				p_bioquimica += 1
+				p_bioquimica_hombre += 1
+				i_subtotal_sistemas += el.pagado
+			elif el.carrera == "electromecanica": 
+				p_electromecanica += 1
+				p_electromecanica_hombre += 1
+				i_subtotal_electromecanica += el.pagado
+			elif el.carrera == "arquitectura": 
+				p_arquitectura += 1
+				p_arquitectura_hombre += 1
+				i_subtotal_arquitectura += el.pagado
+			elif el.carrera == "administracion": 
+				p_administracion += 1
+				p_administracion_hombre += 1
+				i_subtotal_administracion += el.pagado
+			elif el.carrera == "contabilidad": 
+				p_contabilidad += 1
+				p_contabilidad_hombre += 1
+				i_subtotal_contabilidad += el.pagado
+			elif el.carrera == "gestion": 
+				p_gestion += 1
+				p_gestion_hombre += 1
+				i_subtotal_gestion += el.pagado
+			elif el.carrera == "otra": 
+				p_otra += 1
+				p_otra_hombre += 1
+				i_subtotal_otra += el.pagado
+			elif el.carrera == "profesionista": 
+				p_profesionista += 1
+				p_profesionista_hombre += 1
+				i_subtotal_profesionista += el.pagado
+
+			p_total_hombre += 1
+
+		else:
+			if el.carrera == "sistemas": 
+				p_sistemas += 1
+				p_sistemas_mujer += 1
+				i_subtotal_sistemas += el.pagado
+			elif el.carrera == "bioquimica": 
+				p_bioquimica += 1
+				p_bioquimica_mujer += 1
+				i_subtotal_bioquimica += el.pagado
+			elif el.carrera == "electromecanica": 
+				p_electromecanica += 1
+				p_electromecanica_mujer += 1
+				i_subtotal_electromecanica += el.pagado
+			elif el.carrera == "arquitectura": 
+				p_arquitectura += 1
+				p_arquitectura_mujer += 1
+				i_subtotal_arquitectura += el.pagado
+			elif el.carrera == "administracion": 
+				p_administracion += 1
+				p_administracion_mujer += 1
+				i_subtotal_administracion += el.pagado
+			elif el.carrera == "contabilidad": 
+				p_contabilidad += 1
+				p_contabilidad_mujer += 1
+				i_subtotal_contabilidad += el.pagado
+			elif el.carrera == "gestion": 
+				p_gestion += 1
+				p_gestion_mujer += 1
+				i_subtotal_gestion += el.pagado
+			elif el.carrera == "otra": 
+				p_otra += 1
+				p_otra_mujer += 1
+				i_subtotal_otra += el.pagado
+			elif el.carrera == "profesionista": 
+				p_profesionista += 1
+				p_profesionista_mujer += 1
+				i_subtotal_otra += el.pagado
+
+			p_total_mujer += 1
+
+		i_total += el.pagado
+		p_total += 1	
+	
+	contadores = [
+		("Ingeniería en Sistemas Computacionales", c_sistemas, o_sistemas, p_sistemas, c_sistemas_hombre, c_sistemas_mujer, o_sistemas_hombre, o_sistemas_mujer, p_sistemas_hombre, p_sistemas_mujer, i_subtotal_sistemas),
+		("Ingeniería Bioquímica", c_bioquimica, o_bioquimica, p_bioquimica, c_bioquimica_hombre, c_bioquimica_mujer, o_bioquimica_hombre, o_bioquimica_mujer, p_bioquimica_hombre, p_bioquimica_mujer, i_subtotal_bioquimica),
+		("Ingeniería Electromecánica", c_electromecanica, o_electromecanica, p_electromecanica, c_electromecanica_hombre, c_electromecanica_mujer, o_electromecanica_hombre, o_electromecanica_mujer, p_electromecanica_hombre, p_electromecanica_mujer, i_subtotal_electromecanica),
+		("Arquitectura", c_arquitectura, o_arquitectura, p_arquitectura, c_arquitectura_hombre, c_arquitectura_mujer, o_arquitectura_hombre, o_arquitectura_mujer, p_arquitectura_hombre, p_arquitectura_mujer, i_subtotal_arquitectura),
+		("Licenciatura en Administración", c_administracion, o_administracion, p_administracion, c_administracion_hombre, c_administracion_mujer, o_administracion_hombre, o_administracion_mujer, p_administracion_hombre, p_administracion_mujer, i_subtotal_administracion),
+		("Contador Público", c_contabilidad, o_contabilidad, p_contabilidad, c_contabilidad_hombre, c_contabilidad_mujer, o_contabilidad_hombre, o_contabilidad_mujer, p_contabilidad_hombre, p_contabilidad_mujer, i_subtotal_contabilidad),
+		("Ingenieria en Gestión Empresarial", c_gestion, o_gestion, p_gestion, c_gestion_hombre, c_gestion_mujer, o_gestion_hombre, o_gestion_mujer, p_gestion_hombre, p_gestion_mujer, i_subtotal_gestion),
+		("Alumno de Otra Institución", c_otra, o_otra, p_otra, c_otra_hombre, c_otra_mujer, o_otra_hombre, o_otra_mujer, p_otra_hombre, p_otra_mujer, i_subtotal_otra),
+		("Profesionista", c_profesionista, o_profesionista, p_profesionista, c_profesionista_hombre, c_profesionista_mujer, o_profesionista_hombre, o_profesionista_mujer, p_profesionista_hombre, p_profesionista_mujer, i_subtotal_profesionista),
+	]	
+
+	mx_tz = pytz.timezone("America/Mexico_City")
+	fecha =  datetime.now(mx_tz).strftime("%Y-%m-%d %H:%M")
+	context = {
+		"data" : contadores,
+		"fecha" : fecha,
+		"total" : c_total,
+		"total_i" : i_total,
+		"total_h" : c_total_hombre,
+		"total_m" : c_total_mujer,
+		"total_o" : o_total,
+		"total_o_h" : o_total_hombre,
+		"total_o_m" : o_total_mujer,
+		"total_p" : p_total,
+		"total_p_h" : p_total_hombre,
+		"total_p_m" : p_total_mujer,
+	}
+
+	return render(request, "registro/resumen.html", context)
+
+@login_required
 def pagos(request):
 
 	if not request.user.is_superuser:
@@ -87,7 +492,7 @@ def horarios(request):
 	for row in horarios:
 		conf = conferencias.filter(horario__exact=row)
 		item = {
-			"name" : row.user,
+			"name" : row.user.username[:3].upper(),
 			"ponente" : "",
 			"sala" : row.sala,
 			"dia" : row.dia,
@@ -123,20 +528,22 @@ def registros_pago(request, id):
 		registro.fecha_pago = datetime.now().strftime("%Y-%m-%d")
 		if registro.saldo <= monto:
 			registro.state = "done"
-			registro.saldo = 0
+			registro.saldo = 0			
 		else:
 			registro.state = "open"
 			registro.saldo = registro.saldo - monto
+
+		registro.pagado = monto
 		registro.save()
 	# registros = Registro.objects.all().values("id", "nombre", "apellidop", "apellidom", "fecha_pago", "email", "tipo", "identificacion", "semestre", "carrera", "state")
 
-	send_mail(
-	    'PAGO REGISTRADO',
-	    'Se ha registrado tu pago para el congreso CIITYS 2018 por el monto de ' + str(monto),
-	    'glopzvega@iozoft.com',
-	    [registro.email],
-	    fail_silently=False,
-	)
+	# send_mail(
+	#     'PAGO REGISTRADO',
+	#     'Se ha registrado tu pago para el congreso CIITYS 2018 por el monto de ' + str(monto),
+	#     'glopzvega@iozoft.com',
+	#     [registro.email],
+	#     fail_silently=False,
+	# )
 
 	res = { 
 		"success" : True, 
@@ -153,6 +560,7 @@ def registros_pago(request, id):
 				"rfc" : registro.rfc,
 				"semestre" : registro.semestre,
 				"carrera" : registro.carrera,
+				"pagado" : registro.pagado,
 				"saldo" : registro.saldo,
 				"state" : registro.state,
 			}
@@ -264,14 +672,14 @@ def registros_nuevo(request):
 
 			monto = registro.saldo
 
-			send_mail(
-			    'PRE REGISTRO REALIZADO',
-			    'Se ha realizado su pre registro para el congreso CIITYS 2018, para continuar con su registro e inscribirse en uno de los talleres deberá realizar su pago por el monto de ' + str(monto),
-			    'glopzvega@iozoft.com',
-			    [registro.email],
-			    fail_silently=False,
-			    html_message='Se ha realizado su pre registro para el congreso CIITYS 2018, para continuar con su registro e inscribirse en uno de los talleres deberá realizar su pago. <br> <b>REFERENCIA BANCARIA</b> <br> BANCO: <b>BANORTE</b><br>EMPRESA:<b>37333</b><br>REFERENCIAS: <b>E024CIITYS186</b><br>MONTO: <b>$' + str(monto) + '</b>'
-			)
+			# send_mail(
+			#     'PRE REGISTRO REALIZADO',
+			#     'Se ha realizado su pre registro para el congreso CIITYS 2018, para continuar con su registro e inscribirse en uno de los talleres deberá realizar su pago por el monto de ' + str(monto),
+			#     'glopzvega@iozoft.com',
+			#     [registro.email],
+			#     fail_silently=False,
+			#     html_message='Se ha realizado su pre registro para el congreso CIITYS 2018, para continuar con su registro e inscribirse en uno de los talleres deberá realizar su pago. <br> <b>REFERENCIA BANCARIA</b> <br> BANCO: <b>BANORTE</b><br>EMPRESA:<b>37333</b><br>REFERENCIAS: <b>E024CIITYS186</b><br>MONTO: <b>$' + str(monto) + '</b>'
+			# )
 			
 			return redirect('confirmacion')
 			

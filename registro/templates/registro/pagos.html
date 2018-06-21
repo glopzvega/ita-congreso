@@ -135,11 +135,10 @@ actionFomatter = function(value, row)
 					<th data-field="id" data-visible="false"></th>
 					<th data-field="nombre" data-sortable="true">Nombre</th>	
 					<th data-field="apellidop" data-sortable="true">Apellidos</th>					
-					<th data-field="fecha_pago" data-formatter="pagoFormatter" data-sortable="true">Fecha Pago</th>
-					<th data-field="email" data-sortable="true">Email</th>
+					<th data-field="fecha_pago" data-formatter="pagoFormatter" data-sortable="true">Fecha Pago</th>					
 					<th data-field="tipo_registro" data-sortable="true">Tipo</th>
-					<th data-field="identificacion" data-sortable="true">Identificación</th>					
-					<th data-field="carrera" data-formatter="carreraFormatter" data-sortable="true">Carrera</th>
+					<th data-field="identificacion" data-sortable="true">Identificación</th>	
+					<th data-field="pagado" data-formatter="format_number" data-sortable="true">Pagado</th>
 					<th data-field="saldo" data-formatter="format_number" data-sortable="true">Saldo</th>
 					<th data-field="state" data-sortable="true" data-formatter="stateFormatter">Estatus</th>	
 					<th data-field="actions" data-formatter="actionFomatter" data-events="pagoEvents"></th>
@@ -159,10 +158,7 @@ actionFomatter = function(value, row)
 					</td>
 					<td>
 						{{ row.fecha_pago }}
-					</td>
-					<td>
-						{{ row.email }}
-					</td>
+					</td>					
 					<td>
 						{% if row.tipo_registro == 'profesional' %}
 						Profesionista
@@ -190,9 +186,9 @@ actionFomatter = function(value, row)
 
 						{% endif %}
 					</td>
-						
+					
 					<td>
-						{{ row.carrera }}
+						{{ row.pagado }}
 					</td>
 					<td>
 						{{ row.saldo }}

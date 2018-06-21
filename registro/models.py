@@ -198,6 +198,8 @@ class Registro(models.Model):
 		("administracion", "Licenciatura en Administración"),
 		("contabilidad", "Contador Público"),
 		("gestion", "Ingenieria en Gestión Empresarial"),
+		("otra", "Otra Institución"),
+		("profesionista", "Profesionista"),
 	]
 
 	SEMESTRES = [
@@ -244,7 +246,9 @@ class Registro(models.Model):
 	estado = models.CharField(max_length=255, choices=ESTADOS)
 	tipo_registro = models.CharField(max_length=255, choices=TIPO_REGISTRO)
 	saldo = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+	pagado = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 	state = models.CharField(max_length=255, choices=STATES)
 	genero = models.CharField(max_length=10, choices=GENERO)
+
 	def __str__(self):
 		return self.nombre

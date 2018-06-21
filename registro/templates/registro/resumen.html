@@ -1,0 +1,82 @@
+{% extends 'registro/index.html' %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+<section>
+
+<div class="row">
+	<div class="col text-center">
+		<h4>XXV EVENTO NACIONAL ESTUDIANTIL DE CIENCIAS 2018</h4>
+		<h5>Etapa Preliminar</h5>
+		<p>{{ fecha }}</p>		
+		<hr class="divider">
+	</div>
+</div>
+
+<table class="table table-striped table-bordered table-hover table-sm">
+	<thead>
+		<tr>
+			<th class="text-left">CARRERA</th>
+			<th colspan="3" class="text-center">REGISTROS</th>
+			<th colspan="3" class="text-center">PAGO PARCIAL</th>
+			<th colspan="3" class="text-center">PAGADO</th>
+			<th rowspan="2">INGRESOS TOTALES</th>
+		</tr>
+		<tr>
+			<th></th>
+			<th class="text-center">H</th>
+			<th class="text-center">M</th>
+			<th class="text-center">SUBTOTAL</th>
+			<th class="text-center">H</th>
+			<th class="text-center">M</th>
+			<th class="text-center">SUBTOTAL</th>
+			<th class="text-center">H</th>
+			<th class="text-center">M</th>
+			<th class="text-center">SUBTOTAL</th>			
+		</tr>
+
+	</thead>
+	<tbody>
+		{% for el, value, value_o, value_p, value_h, value_m, value_h_o, value_m_o, value_h_p, value_m_p, value_subtotal in data %}
+		<tr>
+			<td class="text-left">{{ el }}</td>
+			<td class="text-center">{{ value_h }}</td>
+			<td class="text-center">{{ value_m }}</td>
+			<td class="text-center"><b>{{ value }}</b></td>
+			<td class="text-center">{{ value_h_o }}</td>
+			<td class="text-center">{{ value_m_o }}</td>
+			<td class="text-center"><b>{{ value_o }}</b></td>
+			<td class="text-center">{{ value_h_p }}</td>
+			<td class="text-center">{{ value_m_p }}</td>
+			<td class="text-center"><b>{{ value_p }}</b></td>
+			<td class="text-center"><b>${{ value_subtotal }}</b></td>
+		</tr>
+		{% endfor %}
+		<tr>
+			<td class="text-right"><b> TOTAL </b></td>
+			<td class="table-secondary text-center">{{ total_h }}</td>
+			<td class="table-secondary text-center">{{ total_m }}</td>
+			<td class="table-secondary text-center"> <b>{{ total }}</b> </td>
+			<td class="table-secondary text-center">{{ total_o_h }}</td>
+			<td class="table-secondary text-center">{{ total_o_m }}</td>
+			<td class="table-secondary text-center"> <b>{{ total_o }}</b> </td>
+			<td class="table-secondary text-center">{{ total_p_h }}</td>
+			<td class="table-secondary text-center">{{ total_p_m }}</td>
+			<td class="table-secondary text-center"> <b>{{ total_p }}</b> </td>
+			<td class="table-secondary text-center"> <b>${{ total_i }}</b> </td>
+		</tr>
+	</tbody>
+
+</table>
+
+
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+	// window.print()
+</script>
+{% endblock %}
