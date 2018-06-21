@@ -54,6 +54,10 @@ def confirmacion(request):
 
 @login_required
 def resumen(request):
+	
+	if not request.user.is_staff or not request.user.is_superuser:
+		return redirect("registros")
+
 	registros = Registro.objects.all()
 	
 	c_sistemas = 0
