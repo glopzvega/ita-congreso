@@ -537,13 +537,13 @@ def registros_pago(request, id):
 		registro.save()
 	# registros = Registro.objects.all().values("id", "nombre", "apellidop", "apellidom", "fecha_pago", "email", "tipo", "identificacion", "semestre", "carrera", "state")
 
-	# send_mail(
-	#     'PAGO REGISTRADO',
-	#     'Se ha registrado tu pago para el congreso CIITYS 2018 por el monto de ' + str(monto),
-	#     'glopzvega@iozoft.com',
-	#     [registro.email],
-	#     fail_silently=False,
-	# )
+	send_mail(
+	    'PAGO REGISTRADO',
+	    'Se ha registrado tu pago para el congreso CIITYS 2018 por el monto de ' + str(monto),
+	    'glopzvega@iozoft.com',
+	    [registro.email],
+	    fail_silently=False,
+	)
 
 	res = { 
 		"success" : True, 
@@ -672,14 +672,14 @@ def registros_nuevo(request):
 
 			monto = registro.saldo
 
-			# send_mail(
-			#     'PRE REGISTRO REALIZADO',
-			#     'Se ha realizado su pre registro para el congreso CIITYS 2018, para continuar con su registro e inscribirse en uno de los talleres deberá realizar su pago por el monto de ' + str(monto),
-			#     'glopzvega@iozoft.com',
-			#     [registro.email],
-			#     fail_silently=False,
-			#     html_message='Se ha realizado su pre registro para el congreso CIITYS 2018, para continuar con su registro e inscribirse en uno de los talleres deberá realizar su pago. <br> <b>REFERENCIA BANCARIA</b> <br> BANCO: <b>BANORTE</b><br>EMPRESA:<b>37333</b><br>REFERENCIAS: <b>E024CIITYS186</b><br>MONTO: <b>$' + str(monto) + '</b>'
-			# )
+			send_mail(
+			    'PRE REGISTRO REALIZADO',
+			    'Se ha realizado su pre registro para el congreso CIITYS 2018, para continuar con su registro e inscribirse en uno de los talleres deberá realizar su pago por el monto de ' + str(monto),
+			    'glopzvega@iozoft.com',
+			    [registro.email],
+			    fail_silently=False,
+			    html_message='Se ha realizado su pre registro para el congreso CIITYS 2018, para continuar con su registro e inscribirse en uno de los talleres deberá realizar su pago. <br> <b>REFERENCIA BANCARIA</b> <br> BANCO: <b>BANORTE</b><br>EMPRESA:<b>37333</b><br>REFERENCIAS: <b>E024CIITYS186</b><br>MONTO: <b>$' + str(monto) + '</b>'
+			)
 			
 			return redirect('confirmacion')
 			
