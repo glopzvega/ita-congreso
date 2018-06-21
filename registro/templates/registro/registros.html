@@ -2,7 +2,54 @@
 
 {% block content %}
 <script>
-	
+
+generoFormat = function(value, row)
+{
+	value = $.trim(value);
+
+	if (value == "hombre")
+	{
+		return "H";
+	}
+	return "M";
+}
+
+carreraFormat = function(value, row)
+{
+	value = $.trim(value);
+
+	if(value == "arquitectura")
+	{
+		value = "Arquitectura";
+	}
+	else if(value == "bioquimica")
+	{
+		value = "Ingeniería en Bioquímica"
+	}
+	else if(value == "electromecanica")
+	{
+		value = "Ingeniería en Electromecánica"
+	}
+	else if(value == "sistemas")
+	{
+		value = "Ingeniería en Sistemas Computacionales"
+	}
+	else if(value == "gestion")
+	{
+		value = "Ingeniería en Gestión Empresarial"
+	}
+	else if(value == "administracion")
+	{
+		value = "Licenciatura en Administración"
+	}
+	else if(value == "contabilidad")
+	{
+		value = "Licenciatura en Contabilidad"
+	}
+
+	return value;
+}
+
 stateFormatter = function(value, row)
 {
 	// return value;
@@ -50,15 +97,16 @@ stateFormatter = function(value, row)
 				data-toolbar="#toolbar">
 			<thead>
 				<tr>
-					<th data-field="nombre" data-sortable="true">Nombre</th>	
 					<th data-field="apellidop" data-sortable="true">Apellidos</th>
+					<th data-field="nombre" data-sortable="true">Nombre</th>	
+					<th data-field="genero" data-formatter="generoFormat" data-sortable="true">Genero</th>
 					<th data-field="fecha_registro" data-sortable="true">Registrado</th>
 					<th data-field="fecha_modificacion" data-sortable="true">Modificado</th>
 					<th data-field="email" data-sortable="true">Email</th>
 					<th data-field="tipo" data-sortable="true">Tipo</th>
 					<th data-field="identificacion" data-sortable="true">Identificación</th>	
 					<th data-field="semestre" data-sortable="true">Semestre</th>
-					<th data-field="carrera" data-sortable="true">Carrera</th>
+					<th data-field="carrera" data-formatter="carreraFormat" data-sortable="true">Carrera</th>
 					<th data-field="state" data-sortable="true" data-formatter="stateFormatter">Estatus</th>	
 					<th></th>
 				</tr>
@@ -67,12 +115,15 @@ stateFormatter = function(value, row)
 				{% for row in data %}
 				<tr>
 					<td>
+						<a href='{% url "registros_editar" row.id %}'>{{ row.apellidop }} {{ row.apellidom }} </a>
+					</td>
+					<td>
 						<a href='{% url "registros_editar" row.id %}'>
 							{{ row.nombre }}
 						</a>
 					</td>
 					<td>
-						<a href='{% url "registros_editar" row.id %}'>{{ row.apellidop }} {{ row.apellidom }} </a>
+						{{ row.genero }}
 					</td>
 					<td>
 						{{ row.fecha_registro }}
@@ -111,10 +162,18 @@ stateFormatter = function(value, row)
 						{% endif %}
 					</td>
 					<td>
+						{% if row.semestre %}
 						{{row.semestre}}
+						{% else %}
+						NA
+						{% endif %}
 					</td>	
 					<td>
+						{% if row.carrera %}
 						{{ row.carrera }}
+						{% else %}
+						NA
+						{% endif %}
 					</td>
 					<td>										
 						{{ row.state }}
