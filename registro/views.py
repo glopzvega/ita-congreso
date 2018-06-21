@@ -669,7 +669,10 @@ def registros_nuevo(request):
 			
 			registro.saldo = 500
 			if registro.tipo_registro == "profesional":
+				registro.carrera = "profesionista"
 				registro.saldo = 3000
+			elif registro.tipo_registro == "alumno2":
+				registro.carrera = "otra"
 
 			registro.state = "draft"
 			registro.save()
